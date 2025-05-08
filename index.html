@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gudeg Jagattara</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 font-sans text-gray-800">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center p-4 bg-green-50">
+    <img src="./assets/logo.png" alt="Gudeg Jagattara" class="w-16 h-16" />
+    <nav class="space-x-6 font-medium">
+      <a href="#" class="text-black">Home</a>
+      <a href="#menu" class="text-black">Menu</a>
+      <a href="#tentang" class="text-black">Tentang Kami</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="flex flex-col-reverse md:flex-row items-center p-6 md:p-12">
+    <div class="md:w-1/2 space-y-4">
+      <h1 class="text-2xl md:text-4xl font-bold">Bersantap dengan Rasa,<br />Jagattara Selalu Ada!</h1>
+      <p class="text-gray-700">Gudeg Jagattara menyediakan berbagai masakan tradisional Indonesia dengan “Gudeg” sebagai menu spesialnya</p>
+      <div class="flex space-x-4">
+        <a href="#" class="bg-green-600 text-white font-semibold py-2 px-4 rounded hover:bg-green-700">Pesan Sekarang</a>
+        <a href="#menu" class="bg-white border border-green-500 text-green-600 font-semibold py-2 px-4 rounded hover:bg-green-100">Lihat Menu</a>
+      </div>
+    </div>
+    <div class="md:w-1/2">
+      <img src="./assets/gudeg.png" alt="Gudeg" class="w-full max-w-md mx-auto" />
+    </div>
+  </section>
+
+  <!-- Keunggulan -->
+  <section class="text-center py-10 px-4 bg-white">
+    <h2 class="text-xl md:text-2xl font-bold mb-6">Pilihan Cerdas Pecinta Kuliner</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div>
+        <img src="icon-makanan.png" class="mx-auto mb-4 w-12" alt="">
+        <h3 class="font-semibold">Makanan Enak</h3>
+        <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus.</p>
+      </div>
+      <div>
+        <img src="icon-harga.png" class="mx-auto mb-4 w-12" alt="">
+        <h3 class="font-semibold">Harga Terjangkau</h3>
+        <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus.</p>
+      </div>
+      <div>
+        <img src="icon-delivery.png" class="mx-auto mb-4 w-12" alt="">
+        <h3 class="font-semibold">Delivery</h3>
+        <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Favorit -->
+  <section id="menu" class="text-center py-10 px-4 bg-green-50">
+    <h2 class="text-xl md:text-2xl font-bold mb-6">Menu Favorit</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="bg-white rounded-lg p-4 shadow">
+        <img src="gudeg.png" class="w-32 h-32 rounded-full mx-auto mb-2" alt="Gudeg" />
+        <p class="font-semibold">Gudeg</p>
+      </div>
+      <div class="bg-white rounded-lg p-4 shadow">
+        <img src="nasipadang.png" class="w-32 h-32 rounded-full mx-auto mb-2" alt="Nasi Padang" />
+        <p class="font-semibold">Nasi Padang</p>
+      </div>
+      <div class="bg-white rounded-lg p-4 shadow">
+        <img src="ayamgoreng.png" class="w-32 h-32 rounded-full mx-auto mb-2" alt="Ayam Goreng" />
+        <p class="font-semibold">Ayam Goreng</p>
+      </div>
+    </div>
+    <div class="mt-6">
+      <a href="#" class="bg-green-600 text-white font-semibold py-2 px-6 rounded hover:bg-green-700">Lihat Selengkapnya</a>
+    </div>
+  </section>
+
+</body>
+</html>
