@@ -4,82 +4,175 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gudeg Jagattara</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #e3fadd;
+    }
+    .hero-img {
+      max-width: 100%;
+      height: auto;
+    }
+    .btn-green {
+      background-color: #114d1a;
+      color: white;
+    }
+    .btn-green:hover {
+      background-color: #1c8430;
+    }
+    h5,h6 {
+      color: #135f22;
+    }
+    p {
+       color: #418a4f;
+    }
+  </style>
 </head>
-<body class="bg-green-50 font-sans text-gray-800">
-
-  <!-- Header -->
-  <header class="flex justify-between items-center p-4 bg-green-50 mx-5">
-    <img src="./assets/logo.png" alt="Gudeg Jagattara" class="w-16 h-16" />
-    <nav class="space-x-6 font-medium">
-      <a href="#" class="text-green-800">Home</a>
-      <a href="#menu" class="text-green-800">Menu</a>
-      <a href="#tentang"class="text-green-800">Tentang Kami</a>
-    </nav>
-  </header>
-
-  <!-- Hero Section -->
-  <!-- Flex dengan arah kolom di mobile, dan baris di desktop (md:flex-row) -->
-  <section class="flex flex-col-reverse md:flex-row items-center p-6 md:p-12">
-    <div class="md:w-1/2 space-y-4">
-      <h1 class="text-3xl md:text-5xl font-bold leading-snug text-green-800">Bersantap dengan Rasa,<br />Jagattara Selalu Ada!</h1>
-      <p class="text-green-600 text-lg mt-">Gudeg Jagattara menyediakan berbagai masakan tradisional Indonesia dengan “Gudeg” sebagai menu spesialnya</p>
-      <div class="flex space-x-4">
-        <a href="#" class="bg-green-600 text-white font-semibold py-2 px-4 rounded hover:bg-green-700">Pesan Sekarang</a>
-        <a href="#menu" class="bg-white border border-green-500 text-green-600 font-semibold py-2 px-4 rounded hover:bg-green-100">Lihat Menu</a>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-transparent">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="./assets/logo.png" alt="Gudeg Jagattara" width="150">
+      </a>
+      <div class="ms-auto fw-semibold">
+        <a class="nav-link active d-inline-block me-3" style="color: #135f22;" href="index.html">Home</a>
+        <a class="nav-link d-inline-block me-3" style="color: #135f22;" href="menu.html">Menu</a>
+        <a class="nav-link d-inline-block" style="color: #135f22;" href="index.html#tentang">Tentang Kami</a>
       </div>
     </div>
-    <div class="md:w-1/2">
-      <img src="./assets/gudeg2.png" alt="Gudeg" class="w-full max-w-md mx-auto " />
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-3 pb-5 position-relative">
+    <div class="container">
+      <div class="row"> 
+        <div class="col-md-6 "> 
+          <h1 style="color: #135f22;" class="fw-bolder mb-4 mt-5">
+            Bersantap dengan Rasa,<br>Jagattara Selalu Ada!
+          </h1>
+          <p style="color: #418a4f;" class="fw-bold mb-5 fs-6">
+            Gudeg Jagattara menyediakan berbagai masakan tradisional Indonesia dengan “Gudeg” sebagai menu spesialnya. 
+          </p>
+          <a href="#" class="btn btn-green me-2">Pesan Sekarang</a>
+          <a href="menu.html" class="btn btn-outline-success">Lihat Menu</a>
+        </div>
+        <div class="col-md-6 position-relative">
+          <img src="./assets/gudeg2.png" alt="Gudeg" class="hero-img position-relative z-1 img-fluid">
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Keunggulan -->
-  <section class="text-center py-10 px-4 bg-white">
-    <h2 class="text-xl md:text-2xl font-bold mb-6">Pilihan Cerdas Pecinta Kuliner</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-      <div>
-        <img src="./assets/symbols_food.png" class="mx-auto mb-4 w-12" alt="">
-        <h3 class="font-semibold">Makanan Enak</h3>
-        <p class="text-sm text-gray-600">Dibuat dari resep rumahan dan bahan berkualitas, setiap sajian penuh cita rasa otentik yang bikin nagih.</p>
-      </div>
-      <div>
-        <img src="./assets/symbols_discount.png" class="mx-auto mb-4 w-12" alt="">
-        <h3 class="font-semibold">Harga Terjangkau</h3>
-        <p class="text-sm text-gray-600">Harga bersahabat tanpa mengurangi kualitas rasa. pilihan tepat untuk semua kalangan.</p>
-      </div>
-      <div>
-        <img src="./assets/symbols_delivery.png" class="mx-auto mb-4 w-12" alt="">
-        <h3 class="font-semibold">Delivery</h3>
-        <p class="text-sm text-gray-600">Mager keluar? Tenang, tinggal klik, pesanan langsung meluncur ke rumahmu.</p>
+  <!-- Fitur Section -->
+  <section class="py-5 bg-white text-center">
+    <div class="container-fluid px-4 px-md-5">
+      <h3 class="mb-5 fw-bold" style="color: #135f22;" >Pilihan Cerdas Pecinta Kuliner</h3>
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-6 col-md-4 mb-4">
+          <img src="./assets/symbols_food.png" width="40" alt="Makanan Enak">
+          <h5 class="mt-4">Makanan Enak</h5>
+          <p class="px-2 mt-4">Dibuat dari resep rumahan dan bahan berkualitas, setiap sajian penuh cita rasa otentik yang bikin nagih.</p>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 mb-4">
+          <img src="./assets/symbols_discount.png" width="40" alt="Harga Terjangkau">
+          <h5 class="mt-4">Harga Terjangkau</h5>
+          <p class="px-2 mt-4">Harga bersahabat tanpa mengurangi kualitas rasa. Pilihan tepat untuk semua kalangan.</p>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 mb-4">
+          <img src="./assets/symbols_delivery.png" width="40" alt="Delivery">
+          <h5 class="mt-4">Delivery</h5>
+          <p class="px-2 mt-4">Mager keluar? Tenang, tinggal klik, pesanan langsung meluncur ke rumahmu.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Menu Favorit -->
-  <section id="menu" class="text-center py-10 px-4 bg-green-50">
-    <h2 class="text-xl md:text-2xl font-bold mb-6">Menu Favorit</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-      <div class="bg-white rounded-lg p-4 shadow">
-        <img src="./assets/favorite-menu-1.png" class="w-32 h-32 rounded-full mx-auto mb-2" alt="Gudeg" />
-        <p class="font-semibold">Gudeg</p>
-        <p class="font-bold text-sm text-gray-800">Rp.25.000</p>
+  <section class="py-5 text-center">
+    <div class="container">
+      <h3 class="mb-5 fw-bold" style="color: #135f22;">Menu Favorit</h3>
+      <div class="row">
+        <div class="col-md-4">
+          <img src="./assets/favorite-menu-1.png" class="rounded-circle mb-2" width="140">
+          <h6><strong>Gudeg</strong></h6>
+          <p>Rp.25.000</p>
+        </div>
+        <div class="col-md-4">
+          <img src="./assets/favorite-menu-2.png" class="rounded-circle mb-2" width="140">
+          <h6><strong>Nasi Padang</strong></h6>
+          <p>Rp.25.000</p>
+        </div>
+        <div class="col-md-4">
+          <img src="./assets/favorite-menu-3.png" class="rounded-circle mb-2" width="140">
+          <h6><strong>Ayam Goreng</strong></h6>
+          <p>Rp.20.000</p>
+        </div>
       </div>
-      <div class="bg-white rounded-lg p-4 shadow">
-        <img src="./assets/favorite-menu-2.png" class="w-32 h-32 rounded-full mx-auto mb-2" alt="Nasi Padang" />
-        <p class="font-semibold">Nasi Padang</p>
-        <p class="font-bold text-sm text-gray-800">Rp.25.000</p>
-      </div>
-      <div class="bg-white rounded-lg p-4 shadow">
-        <img src="./assets/favorite-menu-3.png" class="w-32 h-32 rounded-full mx-auto mb-2" alt="Ayam Goreng" />
-        <p class="font-semibold">Ayam Goreng</p>
-        <p class="font-bold text-sm text-gray-800">Rp.20.000</p>
-      </div>
-    </div>
-    <div class="mt-6">
-      <a href="#" class="bg-green-600 text-white font-semibold py-2 px-6 rounded hover:bg-green-700">Lihat Selengkapnya</a>
+      <a href="menu.html" class="btn btn-green mt-4">Lihat Selengkapnya</a>
     </div>
   </section>
+
+  <!-- Tentang Kami -->
+  <section id="tentang" class="py-5 bg-white text-center">
+      <div class="container-fluid px-4 px-md-5">
+        <img src="./assets/image-tk.png" alt="decoration" width="60">
+        <h3 class="mt-4 mb-4 fw-bold" style="color: #135f22;" >Tentang Gudeg Jagattara</h3>
+        <div class="justify-content-center fw-semibold">
+          <p>
+            Gudeg Jagattara adalah UMKM rumahan dari Desa Wonokerto, Wonosobo, yang berdiri sejak 2019. Didirikan oleh Ibu Nur Hikmah, usaha ini lahir dari semangat belajar otodidak dan kecintaannya pada kuliner tradisional Indonesia, terutama Gudeg. Berkat dedikasi dan eksperimen dapur, terciptalah cita rasa Gudeg khas yang menggugah selera.
+            Kami mengutamakan bahan berkualitas, rasa autentik, dan pelayanan ramah. Selain Gudeg, tersedia juga menu favorit seperti Nasi Padang dan Ayam Goreng. Dengan konsep dapur rumahan, Jagattara siap melayani kebutuhan kuliner harian maupun acara spesial.
+          </p>
+          <a href="galeri.html" class="btn btn-green mt-4">Lihat Galeri</a>
+        </div>
+      </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+          <img src="./assets/logo.png" alt="Logo" width="180" class="mb-4">
+        </div>
+      </div>
+      <div class="row justify-content-center text-start align-items-start">
+        <!-- Kolom 1 -->
+        <div class="col-md-6 mb-3 pe-md-5">
+          <p>
+            <img src="./assets/footer/loc.png" alt="lokasi" width="24" class="me-2 mb-1">
+            Jl.Sukoharjo Km.3, RT.02/RW.03, Wonokerto, Kec.Leksono, Kab.Wonosobo (Belakang Alfamart Wonokerto)
+          </p>
+          <p>
+            <img src="./assets/footer/clock.png" alt="jam" width="24" class="me-2 mb-1">
+            Jam Buka: Setiap Hari, 07.00 – 17.00 WIB
+          </p>
+        </div>
+
+        <!-- Kolom 2 -->
+        <div class="col-md-6 mb-3 ps-md-5">
+          <p>
+            <img src="./assets/footer/layanan.png" alt="layanan" width="24" class="me-2 mb-1">
+            Layanan: Dine-in | Take Away | Pre-order via WhatsApp
+          </p>
+          <p>
+            <img src="./assets/footer/deliv.png" alt="delivery" width="24" class="me-2 mb-1">
+            Pesan Antar tersedia untuk daerah sekitar
+          </p>
+        </div>
+      </div>
+      <!-- Hubungi Kami -->
+      <div class="row mt-1">
+        <div class="col text-center">
+          <p>
+            <img src="./assets/footer/whatsapp.png" alt="whatsapp" width="25" class="me-2">
+            Hubungi Kami Sekarang
+          </p>
+        </div>
+      </div>
+    </div>
+    <p class="text-muted small">© 2025 Gudeg Jagattara – Cita Rasa Rumahan</p>
+  </footer>
 
 </body>
 </html>
