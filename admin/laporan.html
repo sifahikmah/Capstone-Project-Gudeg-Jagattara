@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laporan Penjualan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      background-color: #003366;
+      min-height: 100vh;
+      color: white;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 15px;
+    }
+    .sidebar a:hover {
+      background-color: #002244;
+    }
+    .content {
+      padding: 30px;
+    }
+    .info-card {
+      background-color: #f1fafa;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .info-card h4 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    .info-card .value {
+      color: #0b3b66;
+      font-size: 22px;
+    }
+    .table th {
+      background-color: #002244;
+      color: white;
+    }
+    .table td {
+      background-color: #e8eafe;
+    }
+    .table-total td {
+      background-color: #eeeeee;
+      font-weight: bold;
+      text-align: right;
+    }
+    .section-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin: 40px 0 20px;
+    }
+    .value-blue {
+      color: #0b3b66;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-2 sidebar d-flex flex-column">
+        <div class="text-center my-2">
+          <img src="../assets/logo2.png" alt="Logo" width="180">
+        </div>
+        <a href="#">🏠 Dashboard</a>
+        <a href="#">🍽 Kelola Menu</a>
+        <a href="#">📥 Pesanan Masuk</a>
+        <a href="#">📊 Laporan Penjualan</a>
+        <a href="#">🚪 Logout</a>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-md-10 content">
+        <h3 class="fw-bold mb-4" style="color:#0b3b66;">Laporan Penjualan</h3>
+
+        <!-- Ringkasan -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-3">
+            <div class="info-card">
+              <h4>Total Pesanan</h4>
+              <div class="value">4</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info-card">
+              <h4>Menu Terjual</h4>
+              <div class="value">6</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info-card">
+              <h4>Pendapatan</h4>
+              <div class="value value-blue">Rp.267.000</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="info-card">
+              <h4>Pelanggan</h4>
+              <div class="value text-muted">-</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detail Semua Pesanan -->
+        <div class="section-title">Detail Semua Pesanan</div>
+        <table class="table table-bordered text-center">
+          <thead>
+            <tr>
+              <th>NO</th>
+              <th>Nama</th>
+              <th>Menu</th>
+              <th>Jumlah</th>
+              <th>Total</th>
+              <th>Waktu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Bu Rani</td>
+              <td>
+                Paket 1<br>
+                Paket 2<br>
+                Telur Ayam Pindang
+              </td>
+              <td>2<br>1<br>4</td>
+              <td>Rp.101.000</td>
+              <td>12-05-2025 10.30</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Budi</td>
+              <td>Paket 4</td>
+              <td>3</td>
+              <td>Rp.45.000</td>
+              <td>12-05-2025 16.00</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Bu Siti</td>
+              <td>Opor Dada Ayam<br>Sayur Gudeg</td>
+              <td>2<br>1</td>
+              <td>Rp.31.000</td>
+              <td>13-05-2025 07.30</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Bu Tri</td>
+              <td>Paket 4</td>
+              <td>6</td>
+              <td>Rp.90.000</td>
+              <td>15-05-2025 11.30</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Rekap Penjualan Per Menu -->
+        <div class="section-title">Rekap Penjualan Per Menu</div>
+        <table class="table table-bordered text-center">
+          <thead>
+            <tr>
+              <th>NO</th>
+              <th>Menu</th>
+              <th>Jumlah Terjual</th>
+              <th>Total Pendapatan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Paket 1</td>
+              <td>2</td>
+              <td>Rp.60.000</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Paket 2</td>
+              <td>1</td>
+              <td>Rp.25.000</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Paket 4</td>
+              <td>9</td>
+              <td>Rp.135.000</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Telur Ayam Pindang</td>
+              <td>4</td>
+              <td>Rp.16.000</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Opor Dada Ayam</td>
+              <td>2</td>
+              <td>Rp.26.000</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Sayur Gudeg</td>
+              <td>1</td>
+              <td>Rp.5.000</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="table-total">
+              <td colspan="3">Total</td>
+              <td>Rp.267.000</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
