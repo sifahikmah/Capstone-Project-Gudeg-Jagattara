@@ -9,14 +9,14 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <style>
+ <style>
     body {
       background-color: #e3fadd;
     }
     .nav-link.active {
       font-weight: bold;
-      color: #0d3f15 !important; /* Warna lebih gelap dari #135f22 */
-      border-bottom: 2px solid #135f22; 
+      color: #0d3f15 !important;
+      border-bottom: 2px solid #135f22;
     }
     .hero-img {
       max-width: 100%;
@@ -33,7 +33,35 @@
       color: #135f22;
     }
     p {
-       color: #418a4f;
+      color: #418a4f;
+    }
+    .menu-card {
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 200px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .img-wrapper-small {
+      background-color: #366b30;
+      border-radius: 50%;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .img-wrapper-small img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .menu-card h5 {
+      font-size: 1rem;
+      color: #135f22;
     }
   </style>
 </head>
@@ -109,21 +137,30 @@
   <section class="py-5 text-center">
     <div class="container">
       <h3 class="mb-5 fw-bold" style="color: #135f22;">Menu Favorit</h3>
-      <div class="row">
-        <div class="col-md-4">
-          <img src="./assets/favorite-menu-1.png" class="rounded-circle mb-2" width="140">
-          <h6><strong>Gudeg</strong></h6>
-          <p>Rp.25.000</p>
+      <div class="row justify-content-center">
+        <div class="col-md-4 d-flex justify-content-center mb-4">
+          <div class="menu-card">
+            <div class="img-wrapper-small">
+              <img src="./assets/menu/paket 1.png" alt="Paket 1">
+            </div>
+            <h5 class="mt-3">Paket 1</h5>
+          </div>
         </div>
-        <div class="col-md-4">
-          <img src="./assets/favorite-menu-2.png" class="rounded-circle mb-2" width="140">
-          <h6><strong>Nasi Padang</strong></h6>
-          <p>Rp.25.000</p>
+        <div class="col-md-4 d-flex justify-content-center mb-4">
+          <div class="menu-card">
+            <div class="img-wrapper-small">
+              <img src="./assets/menu/paket2.png" alt="Paket 2">
+            </div>
+            <h5 class="mt-3">Paket 2</h5>
+          </div>
         </div>
-        <div class="col-md-4">
-          <img src="./assets/favorite-menu-3.png" class="rounded-circle mb-2" width="140">
-          <h6><strong>Ayam Goreng</strong></h6>
-          <p>Rp.20.000</p>
+        <div class="col-md-4 d-flex justify-content-center mb-4">
+          <div class="menu-card">
+            <div class="img-wrapper-small">
+              <img src="./assets/menu/opor.png" alt="Opor">
+            </div>
+            <h5 class="mt-3">Opor</h5>
+          </div>
         </div>
       </div>
       <a href="menu.html" class="btn btn-green mt-4">Lihat Selengkapnya</a>
