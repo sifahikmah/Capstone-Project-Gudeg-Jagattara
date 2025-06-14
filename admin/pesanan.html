@@ -23,18 +23,29 @@
     .sidebar a:hover {
       background-color: #002244;
     }
+    .sidebar a.active {
+      background-color: #002244;
+      font-weight: bold;
+    }
     .content {
       padding: 30px;
     }
     .table th {
       background-color: #0d3b66;
       color: white;
+      text-align: center;
+    }
+    .table td {
+      vertical-align: middle;
+      text-align: center;
     }
     .detail-box {
       background-color: #f0f0f0;
       padding: 20px;
       margin-top: 20px;
-      display: none; /* Disembunyikan saat awal */
+      display: none;
+      /* text-align: center;
+      width: 100%; */
     }
     .btn-add {
       background-color: #1e2e3e;
@@ -45,25 +56,25 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-2 sidebar d-flex flex-column">
-      <div class="text-center my-2">
-        <img src="../assets/logo2.png" alt="Logo" width="180">
+      <!-- Sidebar -->
+      <div class="col-md-2 sidebar d-flex flex-column">
+        <div class="text-center my-2">
+          <img src="../assets/logo2.png" alt="Logo" width="180">
+        </div>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="#">🍽 Kelola Menu</a>
+        <a href="pesanan.html" class="active">📥 Pesanan Masuk</a>
+        <a href="#">📊 Laporan Penjualan</a>
+        <a href="#">🚪 Logout</a>
       </div>
-      <a href="#">🏠 Dashboard</a>
-      <a href="#">🍽 Kelola Menu</a>
-      <a href="#">📥 Pesanan Masuk</a>
-      <a href="#">📊 Laporan Penjualan</a>
-      <a href="#">🚪 Logout</a>
-    </div>
 
       <!-- Main content -->
-      <div class="col-md-9 col-lg-10 content">
+      <div class="col-md-10 content">
         <h4 class="fw-bold">Pesanan Masuk</h4>
-        <button class="btn btn-add mb-3 mt-3">+ Tambah Pesanan Baru</button>
+        <a href="tambah-pesanan.html" class="btn btn-add mb-3 mt-3">+ Tambah Pesanan Baru</a>
 
         <!-- Tabel Pesanan -->
-        <table class="table table-bordered">
+        <table class="table table-bordered align-middle">
           <thead>
             <tr>
               <th>No</th>
@@ -72,6 +83,7 @@
               <th>Jumlah</th>
               <th>Total (Rp)</th>
               <th>Lihat</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -82,20 +94,24 @@
               <td>2</td>
               <td>Rp.30.000</td>
               <td><a href="#" onclick="showDetail()">Rincian Pesanan</a></td>
+              <td>
+                <button class="btn btn-success btn-sm me-1">Terima</button>
+                <button class="btn btn-danger btn-sm">Tolak</button>
+              </td>
             </tr>
           </tbody>
         </table>
 
         <!-- Rincian Pesanan -->
         <div id="rincianBox" class="detail-box">
-          <h6 class="text-success">Rincian Pesanan</h6>
-          <p><strong>Nama</strong> : Budi</p>
-          <p><strong>Menu</strong> : Paket 4</p>
-          <p><strong>Jumlah</strong> : 2</p>
-          <p><strong>Catatan</strong> : Nasinya ditambahin</p>
-          <p><strong>Waktu Pemesanan</strong> : Kamis, 22 Mei 2025, 10.30</p>
-          <p><strong>Metode Pengantaran</strong> : Di Ambil</p>
-          <p><strong>Metode Pembayaran</strong> : Tunai</p>
+          <h6 class="fw-bold">Rincian Pesanan</h6>
+          <div>Nama : Budi</div>
+          <div>Menu : Paket 4</div>
+          <div>Jumlah : 2</div>
+          <div>Catatan : Nasinya ditambahin</div>
+          <div>Waktu Pemesanan : Kamis, 22 Mei 2025, 10.30</div>
+          <div>Metode Pengantaran : Di Ambil</div>
+          <div>Metode Pembayaran : Tunai</div>
         </div>
       </div>
     </div>

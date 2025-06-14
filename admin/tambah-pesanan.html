@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tambah Pesanan Baru</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      background-color: #003366;
+      min-height: 100vh;
+      color: white;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 15px;
+    }
+    .sidebar a:hover {
+      background-color: #002244;
+    }
+    .sidebar a.active {
+      background-color: #002244;
+      font-weight: bold;
+    }
+    .content {
+      padding: 30px;
+    }
+    .form-label {
+      font-weight: bold;
+    }
+    .btn-cancel {
+      background-color: #dcdcdc;
+      color: black;
+    }
+    .btn-submit {
+      background-color: #00b300;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-2 sidebar d-flex flex-column">
+        <div class="text-center my-2">
+          <img src="../assets/logo2.png" alt="Logo" width="180">
+        </div>
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="#">🍽 Kelola Menu</a>
+        <a href="pesanan.html" class="active">📥 Pesanan Masuk</a>
+        <a href="#">📊 Laporan Penjualan</a>
+        <a href="#">🚪 Logout</a>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-md-9 col-lg-10 content">
+        <h4 class="fw-bold mb-4">Pesanan Masuk</h4>
+        <h6 class="text-center mb-4">Tambah Pesanan Baru</h6>
+
+        <form>
+          <div class="mb-3">
+            <label for="nama" class="form-label">Nama</label>
+            <input type="text" class="form-control" id="nama" placeholder="Contoh: Sari Dewi">
+          </div>
+          <div class="mb-3">
+            <label for="menu" class="form-label">Menu</label>
+            <input type="text" class="form-control" id="menu" placeholder="Contoh: Paket 2">
+          </div>
+          <div class="mb-3">
+            <label for="jumlah" class="form-label">Jumlah</label>
+            <input type="number" class="form-control" id="jumlah" placeholder="Contoh: 3">
+          </div>
+          <div class="mb-3">
+            <label for="total" class="form-label">Total (Rp)</label>
+            <input type="text" class="form-control" id="total" placeholder="Contoh: Rp.75.000">
+          </div>
+          <div class="mb-3">
+            <label for="catatan" class="form-label">Catatan</label>
+            <textarea class="form-control" id="catatan" rows="3" placeholder="Contoh: Minta sambalnya ditambah"></textarea>
+          </div>
+          <div class="text-end">
+            <button type="reset" class="btn btn-cancel me-2">Batal</button>
+            <button type="submit" class="btn btn-submit">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
