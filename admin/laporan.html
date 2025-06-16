@@ -13,6 +13,7 @@
       background-color: #003366;
       min-height: 100vh;
       color: white;
+      font-size: larger;
     }
     .sidebar a {
       color: white;
@@ -22,6 +23,10 @@
     }
     .sidebar a:hover {
       background-color: #002244;
+    }
+    .sidebar a.active {
+      background-color: #002244;
+      font-weight: bold;
     }
     .content {
       padding: 30px;
@@ -75,7 +80,7 @@
         <a href="dashboard.html">🏠 Dashboard</a>
         <a href="kelolamenu.html">🍽 Kelola Menu</a>
         <a href="pesanan.html">📥 Pesanan Masuk</a>
-        <a href="laporan.html">📊 Laporan Penjualan</a>
+        <a href="laporan.html" class="active">📊 Laporan Penjualan</a>
         <a href="#">🚪 Logout</a>
       </div>
 
