@@ -14,6 +14,7 @@
       background-color: #003366;
       min-height: 100vh;
       color: white;
+      font-size: larger;
     }
     .sidebar a {
       color: white;
@@ -38,63 +39,82 @@
   </style>
 </head>
 <body>
-<div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-2 sidebar d-flex flex-column">
-      <div class="text-center my-2">
-        <img src="../assets/logo2.png" alt="Logo" width="180">
-      </div>
-      <a href="dashboard.html" class="active">🏠 Dashboard</a>
-      <a href="kelolamenu.html">🍽 Kelola Menu</a>
-      <a href="pesanan.html">📥 Pesanan Masuk</a>
-      <a href="laporan.html">📊 Laporan Penjualan</a>
-      <a href="#">🚪 Logout</a>
-    </div>
-
-    <!-- Main Content -->
-    <div class="col-md-10 p-4">
-      <h3 class="mb-4"><strong>Dashboard Admin</strong></h3>
-
-      <!-- Summary Cards -->
-      <div class="row mb-4">
-        <div class="col-md-3"><div class="summary-box">Total Menu</div></div>
-        <div class="col-md-3"><div class="summary-box">Pesanan Masuk</div></div>
-        <div class="col-md-3"><div class="summary-box">Total Penjualan</div></div>
-        <div class="col-md-3"><div class="summary-box">Pelanggan</div></div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-2 sidebar d-flex flex-column">
+        <div class="text-center my-2">
+          <img src="../assets/logo2.png" alt="Logo" width="180">
+        </div>
+        <a href="dashboard.html" class="active">🏠 Dashboard</a>
+        <a href="kelolamenu.html">🍽 Kelola Menu</a>
+        <a href="pesanan.html">📥 Pesanan Masuk</a>
+        <a href="laporan.html">📊 Laporan Penjualan</a>
+        <a href="#">🚪 Logout</a>
       </div>
 
-      <!-- Chart -->
-      <canvas id="salesChart" height="100"></canvas>
+      <!-- Main Content -->
+      <div class="col-md-10 p-4">
+        <h3 class="mb-4"><strong>Dashboard Admin</strong></h3>
+
+        <!-- Summary Cards -->
+        <div class="row mb-4">
+          <div class="col-md-3">
+            <div class="summary-box">
+              Total Menu
+              <div class="fs-4 text-primary mt-2">6</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="summary-box">
+              Pesanan Masuk
+              <div class="fs-4 text-primary mt-2">5</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="summary-box">
+              Total Penjualan
+              <div class="fs-4 text-primary mt-2">20</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="summary-box">
+              Pelanggan
+              <div class="fs-4 text-primary mt-2">6</div>
+            </div>
+          </div>
+        </div>
+        <!-- Chart -->
+        <canvas id="salesChart" height="100"></canvas>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- <script>
-  const ctx = document.getElementById('salesChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
-      datasets: [{
-        label: 'Penjualan (Rp)',
-        data: [200000, 300000, 250000, 370000, 290000, 420000, 480000],
-        backgroundColor: '#002f6c'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            callback: function(value) {
-              return 'Rp ' + value.toLocaleString('id-ID');
+  
+  <script>
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+        datasets: [{
+          label: 'Penjualan (Rp)',
+          data: [200000, 300000, 250000, 370000, 290000, 420000, 480000],
+          backgroundColor: '#002f6c'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return 'Rp ' + value.toLocaleString('id-ID');
+              }
             }
           }
         }
       }
-    }
-  });
-</script> -->
+    });
+  </script>
 </body>
 </html>
