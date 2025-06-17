@@ -23,10 +23,6 @@
     .sidebar a:hover {
       background-color: #002244;
     }
-    .sidebar a.active {
-      background-color: #002244;
-      font-weight: bold;
-    }
     .content {
       padding: 30px;
     }
@@ -79,7 +75,7 @@
         <a href="dashboard.html">🏠 Dashboard</a>
         <a href="kelolamenu.html">🍽 Kelola Menu</a>
         <a href="pesanan.html">📥 Pesanan Masuk</a>
-        <a href="laporan.html" class="active">📊 Laporan Penjualan</a>
+        <a href="laporan.html">📊 Laporan Penjualan</a>
         <a href="#">🚪 Logout</a>
       </div>
 
@@ -89,31 +85,38 @@
 
         <!-- Ringkasan -->
         <div class="row g-3 mb-4">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="info-card">
               <h4>Total Pesanan</h4>
               <div class="value">4</div>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="info-card">
               <h4>Menu Terjual</h4>
               <div class="value">6</div>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="info-card">
-              <h4>Pendapatan</h4>
+              <h4>Total Pendapatan</h4>
               <div class="value value-blue">Rp.267.000</div>
             </div>
           </div>
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
+              <div class="info-card">
+                <h4>Menu Terlaris</h4>
+                <div class="value">Paket 4</div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="col-md-3">
             <div class="info-card">
               <h4>Pelanggan</h4>
               <div class="value text-muted">-</div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Detail Semua Pesanan -->
         <div class="section-title">Detail Semua Pesanan</div>
@@ -122,7 +125,7 @@
             <tr>
               <th>NO</th>
               <th>Nama</th>
-              <th>Menu</th>
+              <th style="width: 200px;">Menu</th>
               <th>Jumlah</th>
               <th>Total</th>
               <th>Waktu</th>
@@ -131,8 +134,8 @@
           <tbody>
             <tr>
               <td>1</td>
-              <td>Bu Rani</td>
-              <td>
+              <td class="text-start">Bu Rani</td>
+              <td class="text-start">
                 Paket 1<br>
                 Paket 2<br>
                 Telur Ayam Pindang
@@ -143,24 +146,24 @@
             </tr>
             <tr>
               <td>2</td>
-              <td>Budi</td>
-              <td>Paket 4</td>
+              <td class="text-start">Budi</td>
+              <td class="text-start">Paket 4</td>
               <td>3</td>
               <td>Rp.45.000</td>
               <td>12-05-2025 16.00</td>
             </tr>
             <tr>
               <td>3</td>
-              <td>Bu Siti</td>
-              <td>Opor Dada Ayam<br>Sayur Gudeg</td>
+              <td class="text-start">Bu Siti</td>
+              <td class="text-start">Opor Dada Ayam<br>Sayur Gudeg</td>
               <td>2<br>1</td>
               <td>Rp.31.000</td>
               <td>13-05-2025 07.30</td>
             </tr>
             <tr>
               <td>4</td>
-              <td>Bu Tri</td>
-              <td>Paket 4</td>
+              <td class="text-start">Bu Tri</td>
+              <td class="text-start">Paket 4</td>
               <td>6</td>
               <td>Rp.90.000</td>
               <td>15-05-2025 11.30</td>
@@ -182,37 +185,37 @@
           <tbody>
             <tr>
               <td>1</td>
-              <td>Paket 1</td>
+              <td class="text-start">Paket 1</td>
               <td>2</td>
               <td>Rp.60.000</td>
             </tr>
             <tr>
               <td>2</td>
-              <td>Paket 2</td>
+              <td class="text-start">Paket 2</td>
               <td>1</td>
               <td>Rp.25.000</td>
             </tr>
             <tr>
               <td>3</td>
-              <td>Paket 4</td>
+              <td class="text-start">Paket 4</td>
               <td>9</td>
               <td>Rp.135.000</td>
             </tr>
             <tr>
               <td>4</td>
-              <td>Telur Ayam Pindang</td>
+              <td class="text-start">Telur Ayam Pindang</td>
               <td>4</td>
               <td>Rp.16.000</td>
             </tr>
             <tr>
               <td>5</td>
-              <td>Opor Dada Ayam</td>
+              <td class="text-start">Opor Dada Ayam</td>
               <td>2</td>
               <td>Rp.26.000</td>
             </tr>
             <tr>
               <td>6</td>
-              <td>Sayur Gudeg</td>
+              <td class="text-start">Sayur Gudeg</td>
               <td>1</td>
               <td>Rp.5.000</td>
             </tr>
@@ -220,7 +223,7 @@
           <tfoot>
             <tr class="table-total">
               <td colspan="3">Total</td>
-              <td>Rp.267.000</td>
+              <td class="text-center">Rp.267.000</td>
             </tr>
           </tfoot>
         </table>
