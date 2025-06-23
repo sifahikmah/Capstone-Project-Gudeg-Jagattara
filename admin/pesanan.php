@@ -58,6 +58,11 @@ $result = $koneksi->query($query);
       margin: 2px 0;
       width: 70px;
     }
+    .scroll-table {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
   </style>
 </head>
 <body>
@@ -80,55 +85,57 @@ $result = $koneksi->query($query);
         <h4 class="fw-bold">Pesanan Masuk</h4>
         <a href="tambah_pesanan.php" class="btn btn-add mb-3 mt-3">+ Tambah Pesanan</a>
 
-        <table class="table table-bordered align-middle">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nama</th>
-              <th>Menu</th>
-              <th>Total (Rp)</th>
-              <th>Metode</th>
-              <th>Alamat</th>
-              <th>Catatan</th>
-              <th>Bukti Transfer</th>
-              <th>Waktu Pemesanan</th>
-              <th>Status</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php if ($result->num_rows > 0): $no = 1; while ($row = $result->fetch_assoc()): ?>
+        <div class="scroll-table">
+          <table class="table table-bordered align-middle">
+            <thead>
               <tr>
-                <td><?= $no++ ?></td>
-                <td><?= htmlspecialchars($row['nama_pembeli']) ?></td>
-                <td><?= $row['daftar_menu'] ?: '-' ?></td>
-                <td>Rp<?= number_format($row['total'], 0, ',', '.') ?></td>
-                <td><?= $row['metode_pengantaran'] ?><br><?= $row['metode_pembayaran'] ?></td>
-                <td><?= $row['alamat'] ? htmlspecialchars($row['alamat']) : '-' ?></td>
-                <td><?= $row['catatan'] ? nl2br(htmlspecialchars($row['catatan'])) : '-' ?></td>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Menu</th>
+                <th>Total (Rp)</th>
+                <th>Metode</th>
+                <th>Alamat</th>
+                <th>Catatan</th>
+                <th>Bukti Transfer</th>
+                <th>Waktu Pemesanan</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if ($result->num_rows > 0): $no = 1; while ($row = $result->fetch_assoc()): ?>
+                <tr>
+                  <td><?= $no++ ?></td>
+                  <td><?= htmlspecialchars($row['nama_pembeli']) ?></td>
+                  <td><?= $row['daftar_menu'] ?: '-' ?></td>
+                  <td>Rp<?= number_format($row['total'], 0, ',', '.') ?></td>
+                  <td><?= $row['metode_pengantaran'] ?><br><?= $row['metode_pembayaran'] ?></td>
+                  <td><?= $row['alamat'] ? htmlspecialchars($row['alamat']) : '-' ?></td>
+                  <td><?= $row['catatan'] ? nl2br(htmlspecialchars($row['catatan'])) : '-' ?></td>
+                  <td>
+                    <?php if (!empty($row['bukti_transfer'])): ?>
+                      <a href="../<?= $row['bukti_transfer'] ?>" target="_blank">Lihat Bukti</a>
+                    <?php else: ?>
+                      -
+                    <?php endif; ?>
+                  </td>
+                  <td><?= date('d M Y, H:i', strtotime($row['created_at'])) ?></td>
+                  <td><?= ucfirst($row['status']) ?></td>
                 <td>
-                  <?php if (!empty($row['bukti_transfer'])): ?>
-                    <a href="../<?= $row['bukti_transfer'] ?>" target="_blank">Lihat Bukti</a>
+                  <?php if ($row['status'] === 'menunggu'): ?>
+                    <a href="terima_pesanan.php?id=<?= $row['id_pesanan'] ?>" class="btn btn-success btn-sm btn-aksi">Terima</a>
+                    <a href="tolak_pesanan.php?id=<?= $row['id_pesanan'] ?>" class="btn btn-danger btn-sm btn-aksi">Tolak</a>
                   <?php else: ?>
-                    -
+                    <span class="text-muted">Selesai</span>
                   <?php endif; ?>
                 </td>
-                <td><?= date('d M Y, H:i', strtotime($row['created_at'])) ?></td>
-                <td><?= ucfirst($row['status']) ?></td>
-              <td>
-                <?php if ($row['status'] === 'menunggu'): ?>
-                  <a href="terima_pesanan.php?id=<?= $row['id_pesanan'] ?>" class="btn btn-success btn-sm btn-aksi">Terima</a>
-                  <a href="tolak_pesanan.php?id=<?= $row['id_pesanan'] ?>" class="btn btn-danger btn-sm btn-aksi">Tolak</a>
-                <?php else: ?>
-                  <span class="text-muted">Selesai</span>
-                <?php endif; ?>
-              </td>
-              </tr>
-            <?php endwhile; else: ?>
-              <tr><td colspan="11">Belum ada pesanan masuk.</td></tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
+                </tr>
+              <?php endwhile; else: ?>
+                <tr><td colspan="11">Belum ada pesanan masuk.</td></tr>
+              <?php endif; ?>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
