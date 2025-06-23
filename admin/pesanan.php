@@ -38,6 +38,10 @@ $result = $koneksi->query($query);
       background-color: #002244;
       font-weight: bold;
     }
+    .btn-add {
+      background-color: #002244;
+      color: white;
+    }
     .content { padding: 30px; }
     .table th {
       background-color: #0d3b66;
@@ -72,6 +76,7 @@ $result = $koneksi->query($query);
       <!-- Main content -->
       <div class="col-md-10 content">
         <h4 class="fw-bold">Pesanan Masuk</h4>
+                <a href="tambahmenu.php" class="btn btn-add mb-3 mt-3">+ Tambah Menu</a>
 
         <table class="table table-bordered align-middle">
           <thead>
@@ -113,7 +118,7 @@ $result = $koneksi->query($query);
                   <a href="terima_pesanan.php?id=<?= $row['id_pesanan'] ?>" class="btn btn-success btn-sm btn-aksi">Terima</a>
                   <a href="tolak_pesanan.php?id=<?= $row['id_pesanan'] ?>" class="btn btn-danger btn-sm btn-aksi">Tolak</a>
                 <?php else: ?>
-                  <span class="text-muted">Tidak ada aksi</span>
+                  <span class="text-muted">Selesai</span>
                 <?php endif; ?>
               </td>
               </tr>
