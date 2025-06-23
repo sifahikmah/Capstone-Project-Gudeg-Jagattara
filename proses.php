@@ -1,10 +1,19 @@
+<?php
+include 'koneksi.php';
+$id = $_GET['id'] ?? $_COOKIE['id_pesanan'] ?? null;
+
+if (!$id) {
+  echo "<script>alert('Pesanan tidak ditemukan'); window.location='menu.php';</script>";
+  exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <title>Pembayaran Diproses</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
@@ -38,13 +47,26 @@
   <p class="text-muted">Terima kasih telah melakukan pembayaran.<br>Mohon tunggu sebentar, kami sedang memverifikasi transaksi Anda.</p>
 </div>
 
+<!-- Fetch status & redirect -->
 <script>
-  setTimeout(function(){
-    window.location.href = "nota.html"; // ganti sesuai rute
+  const interval = setInterval(() => {
+    fetch('cek_status.php?id=<?= $id ?>')
+      .then(res => res.json())
+      .then(data => {
+        console.log("Status dari server:", data.status);
+        if (data.status === 'diterima') {
+          clearInterval(interval);
+          window.location.href = 'berhasil.php?id=<?= $id ?>';
+        } else if (data.status === 'ditolak') {
+          clearInterval(interval);
+          alert('Pesanan Anda ditolak.');
+          window.location.href = 'menu.php';
+        }
+      })
+      .catch(err => console.error("Gagal memeriksa status:", err));
   }, 5000);
 </script>
 
-<!-- Bootstrap JS (jika diperlukan untuk komponen lain) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

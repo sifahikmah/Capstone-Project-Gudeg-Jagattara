@@ -120,13 +120,20 @@
           method: "POST",
           body: formData
         })
-        .then(res => res.text())
+        .then(res => res.json())
         .then(res => {
-          alert("Pesanan berhasil dikirim!");
-          localStorage.removeItem("pesanan");
-          window.location.href = "proses.html"; 
+          if (res.status === "success") {
+            localStorage.removeItem("pesanan");
+            window.location.href = "proses.php?id=" + res.id_pesanan;
+          } else {
+            alert("Gagal menyimpan pesanan.");
+          }
         })
-        .catch(err => alert("Gagal mengirim pesanan!"));
+        .catch(err => {
+          alert("Terjadi kesalahan saat mengirim pesanan.");
+          console.error(err);
+        });
+
       });
     });
   </script>
