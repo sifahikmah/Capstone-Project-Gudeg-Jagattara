@@ -175,10 +175,10 @@
       </div>
       <div class="row mt-1">
         <div class="col text-center">
-          <p>
+          <a href="https://wa.me/6281327456736" target="_blank" style="text-decoration: none; color: inherit;">
             <img src="./assets/footer/whatsapp.png" alt="whatsapp" width="25" class="me-2">
             Hubungi Kami Sekarang
-          </p>
+          </a>
         </div>
       </div>
     </div>

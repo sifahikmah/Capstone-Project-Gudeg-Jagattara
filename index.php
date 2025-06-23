@@ -1,15 +1,39 @@
+
+<?php
+session_start();
+include 'koneksi.php';
+
+// Ambil 3 menu terlaris
+$query = "
+  SELECT 
+    COALESCE(m.nama_menu, d.nama_menu_manual) AS nama_menu,
+    m.gambar,
+    SUM(d.jumlah) AS total_terjual
+  FROM detail_pesanan d
+  JOIN pesanan p ON d.id_pesanan = p.id_pesanan
+  LEFT JOIN menu m ON d.id_menu = m.id_menu
+  WHERE p.status = 'diterima'
+  GROUP BY nama_menu, m.gambar
+  ORDER BY total_terjual DESC
+  LIMIT 3
+";
+$terlaris = mysqli_query($koneksi, $query);
+
+if (!$terlaris) {
+  die("Query gagal: " . mysqli_error($koneksi));
+}
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gudeg Jagattara</title>
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
- <style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
     body {
       background-color: #e3fadd;
     }
@@ -69,50 +93,47 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-transparent">
-    <div class="container">
-      <a class="navbar-brand" href="index.php">
-        <img src="./assets/logo.png" alt="Gudeg Jagattara" width="150">
-      </a>
-      <!-- Tombol hamburger untuk mobile -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAlt"
-        aria-controls="navbarNavAlt" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAlt">
-          <div class="navbar-nav fw-semibold">
-            <a class="nav-link active me-3" style="color: #135f22;" href="index.php">Home</a>
-            <a class="nav-link me-3" style="color: #135f22;" href="menu.php">Menu</a>
-            <a class="nav-link" style="color: #135f22;" href="index.php#tentang">Tentang Kami</a>
-          </div>
-        </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="pt-3 pb-5 position-relative">
-    <div class="container">
-      <div class="row"> 
-        <div class="col-md-6 hero-text animate__animated animate__fadeIn"> 
-          <h1 style="color: #135f22;" class="fw-bolder mb-4 mt-5 animate__animated animate__fadeInDown">
-            Bersantap dengan Rasa,<br>Jagattara Selalu Ada!
-          </h1>
-          <p style="color: #418a4f;" class="fw-bold mb-5 fs-6 animate__animated animate__fadeInUp">
-            Gudeg Jagattara menyediakan berbagai masakan tradisional Indonesia dengan “Gudeg” sebagai menu spesialnya. 
-          </p>
-          <!-- <a href="#" class="btn btn-green me-2">Pesan Sekarang</a> -->
-          <a href="menu.php" class="btn btn-green me-2">Lihat Menu</a>
-        </div>
-        <div class="col-md-6 position-relative">
-          <img src="./assets/gudeg2.png" alt="Gudeg" class="hero-img position-relative z-1 img-fluid">
-        </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-transparent">
+  <div class="container">
+    <a class="navbar-brand" href="index.php">
+      <img src="./assets/logo.png" alt="Gudeg Jagattara" width="150">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAlt">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAlt">
+      <div class="navbar-nav fw-semibold">
+        <a class="nav-link active me-3" style="color: #135f22;" href="index.php">Home</a>
+        <a class="nav-link me-3" style="color: #135f22;" href="menu.php">Menu</a>
+        <a class="nav-link" style="color: #135f22;" href="#tentang">Tentang Kami</a>
       </div>
     </div>
-  </section>
+  </div>
+</nav>
 
-  <!-- Fitur Section -->
+<!-- Hero -->
+<section class="pt-3 pb-5 position-relative">
+  <div class="container">
+    <div class="row"> 
+      <div class="col-md-6 hero-text animate__animated animate__fadeIn"> 
+        <h1 style="color: #135f22;" class="fw-bolder mb-4 mt-5 animate__animated animate__fadeInDown">
+          Bersantap dengan Rasa,<br>Jagattara Selalu Ada!
+        </h1>
+        <p style="color: #418a4f;" class="fw-bold mb-5 fs-6 animate__animated animate__fadeInUp">
+          Gudeg Jagattara menyediakan berbagai masakan tradisional Indonesia dengan “Gudeg” sebagai menu spesialnya. 
+        </p>
+        <a href="menu.php" class="btn btn-green me-2">Lihat Menu</a>
+      </div>
+      <div class="col-md-6 position-relative">
+        <img src="./assets/gudeg2.png" alt="Gudeg" class="hero-img position-relative z-1 img-fluid">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Fitur Section -->
   <section class="py-5 bg-white text-center">
     <div class="container-fluid px-4 px-md-5">
       <h3 class="mb-5 fw-bold" style="color: #135f22;" >Pilihan Cerdas Pecinta Kuliner</h3>
@@ -136,56 +157,69 @@
     </div>
   </section>
 
-  <!-- Menu Favorit -->
-  <section class="py-5 text-center">
-    <div class="container">
-      <h3 class="mb-5 fw-bold" style="color: #135f22;">Menu Favorit</h3>
-      <div class="row justify-content-center">
+        <!-- Menu Favorit -->
+        <section class="py-5 text-center">
+        <div class="container">
+        <h3 class="mb-5 fw-bold" style="color: #135f22;">Menu Favorit</h3>
+        <div class="row justify-content-center">
+        <?php while ($row = mysqli_fetch_assoc($terlaris)) : ?>
         <div class="col-md-4 d-flex justify-content-center mb-4">
           <div class="menu-card">
+            <?php
+              // ambil nama menu dari database
+              $nama_menu = strtolower($row['nama_menu']);
+
+              // tentukan gambar berdasarkan nama menu
+              switch ($nama_menu) {
+                case 'paket 1':
+                  $gambar = 'paket1.png';
+                  break;
+                case 'paket 2':
+                  $gambar = 'paket2.png';
+                  break;
+                case 'paket 3':
+                  $gambar = 'paket3.png';
+                  break;
+                case 'paket 4':
+                  $gambar = 'paket4.png';
+                  break;
+                case 'opor':
+                  $gambar = 'opor.png';
+                  break;
+                default:
+                  $gambar = 'default.png'; // fallback kalau nama gak cocok
+                  break;
+              }
+            ?>
             <div class="img-wrapper-small">
-              <img src="./assets/menu/paket1.png" alt="Paket 1">
+              <img src="./assets/menu/<?= $gambar ?>" alt="<?= htmlspecialchars($row['nama_menu']) ?>">
             </div>
-            <h5 class="mt-3">Paket 1</h5>
+            <h5 class="mt-3"><?= htmlspecialchars($row['nama_menu']) ?></h5>
+            <p class="text-muted small">Terjual <?= $row['total_terjual'] ?> porsi</p>
           </div>
         </div>
-        <div class="col-md-4 d-flex justify-content-center mb-4">
-          <div class="menu-card">
-            <div class="img-wrapper-small">
-              <img src="./assets/menu/paket2.png" alt="Paket 2">
-            </div>
-            <h5 class="mt-3">Paket 2</h5>
-          </div>
-        </div>
-        <div class="col-md-4 d-flex justify-content-center mb-4">
-          <div class="menu-card">
-            <div class="img-wrapper-small">
-              <img src="./assets/menu/opor.png" alt="Opor">
-            </div>
-            <h5 class="mt-3">Opor</h5>
-          </div>
-        </div>
-      </div>
-      <a href="menu.php" class="btn btn-green mt-4">Lihat Selengkapnya</a>
+      <?php endwhile; ?>
     </div>
-  </section>
+    <a href="menu.php" class="btn btn-green mt-4">Lihat Selengkapnya</a>
+  </div>
+</section>
 
-  <!-- Tentang Kami -->
-  <section id="tentang" class="py-5 bg-white text-center">
-      <div class="container-fluid px-4 px-md-5">
-        <img src="./assets/image-tk.png" alt="decoration" width="60">
-        <h3 class="mt-4 mb-4 fw-bold" style="color: #135f22;" >Tentang Gudeg Jagattara</h3>
-        <div class="justify-content-center fw-semibold">
-          <p>
-            Gudeg Jagattara adalah UMKM rumahan dari Desa Wonokerto, Wonosobo, yang berdiri sejak 2019. Didirikan oleh Ibu Nur Hikmah, usaha ini lahir dari semangat belajar otodidak dan kecintaannya pada kuliner tradisional Indonesia, terutama Gudeg. Berkat dedikasi dan eksperimen dapur, terciptalah cita rasa Gudeg khas yang menggugah selera.
-            Kami mengutamakan bahan berkualitas, rasa autentik, dan pelayanan ramah. Selain Gudeg, tersedia juga menu favorit seperti Nasi Padang dan Ayam Goreng. Dengan konsep dapur rumahan, Jagattara siap melayani kebutuhan kuliner harian maupun acara spesial.
-          </p>
-          <a href="galeri.php" class="btn btn-green mt-4">Lihat Galeri</a>
-        </div>
-      </div>
-  </section>
+<!-- Tentang -->
+<section id="tentang" class="py-5 bg-white text-center">
+  <div class="container-fluid px-4 px-md-5">
+    <img src="./assets/image-tk.png" alt="decoration" width="60">
+    <h3 class="mt-4 mb-4 fw-bold" style="color: #135f22;" >Tentang Gudeg Jagattara</h3>
+    <div class="justify-content-center fw-semibold">
+      <p>
+        Gudeg Jagattara adalah UMKM rumahan dari Desa Wonokerto, Wonosobo, yang berdiri sejak 2019. Didirikan oleh Ibu Nur Hikmah, usaha ini lahir dari semangat belajar otodidak dan kecintaannya pada kuliner tradisional Indonesia, terutama Gudeg. Berkat dedikasi dan eksperimen dapur, terciptalah cita rasa Gudeg khas yang menggugah selera.
+        Kami mengutamakan bahan berkualitas, rasa autentik, dan pelayanan ramah.
+      </p>
+      <a href="galeri.php" class="btn btn-green mt-4">Lihat Galeri</a>
+    </div>
+  </div>
+</section>
 
-  <!-- Footer -->
+<!-- Footer -->
   <footer class="text-center">
     <div class="container py-4">
       <div class="row justify-content-center">
@@ -221,10 +255,10 @@
       <!-- Hubungi Kami -->
       <div class="row mt-1">
         <div class="col text-center">
-          <p>
+          <a href="https://wa.me/6281327456736" target="_blank" style="text-decoration: none; color: inherit;">
             <img src="./assets/footer/whatsapp.png" alt="whatsapp" width="25" class="me-2">
             Hubungi Kami Sekarang
-          </p>
+          </a>
         </div>
       </div>
     </div>
