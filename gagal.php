@@ -39,7 +39,7 @@
     </p>
     <div class="d-flex justify-content-center gap-2 mt-4">
       <a href="menu.php" class="btn btn-success">Kembali ke Menu</a>
-      <a href="https://wa.me/6281327456736?text=Halo%20saya%20ingin%20bertanya%20tentang%20pesanan%20yang%20ditolak." 
+      <a href="https://wa.me/6281327456736?text=Halo%20saya%20ingin%20bertanya%20tentang%20pesanan%20yang%20gagal." 
         target="_blank" 
         class="btn btn-outline-success">
         Hubungi Penjual
