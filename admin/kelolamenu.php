@@ -1,3 +1,4 @@
+<?php include '../koneksi.php'; ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -48,6 +49,10 @@
       color: white;
       border: none;
     }
+    img.menu-thumb {
+      width: 60px;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -58,43 +63,56 @@
         <div class="text-center my-2">
           <img src="../assets/logo2.png" alt="Logo" width="180">
         </div>
-        <a href="dashboard.html">🏠 Dashboard</a>
-        <a href="kelolamenu.html" class="active">🍽 Kelola Menu</a>
-        <a href="pesanan.html">📥 Pesanan Masuk</a>
-        <a href="laporan.html">📊 Laporan Penjualan</a>
+        <a href="dashboard.php">🏠 Dashboard</a>
+        <a href="kelolamenu.php" class="active">🍽 Kelola Menu</a>
+        <a href="pesanan.php">📥 Pesanan Masuk</a>
+        <a href="laporan.php">📊 Laporan Penjualan</a>
         <a href="#">🚪 Logout</a>
       </div>
 
       <!-- Main content -->
       <div class="col-md-9 col-lg-10 content">
         <h4 class="fw-bold">Kelola Menu</h4>
-        <a href="tambahmenu.html" class="btn btn-add mb-3 mt-3">+ Tambah Menu</a>
+        <a href="tambahmenu.php" class="btn btn-add mb-3 mt-3">+ Tambah Menu</a>
 
         <!-- Tabel Menu -->
-        <table class="table table-bordered">
+        <table class="table table-bordered align-middle">
           <thead>
             <tr>
               <th>No</th>
               <th>Nama Menu</th>
               <th>Harga</th>
               <th>Deskripsi</th>
+              <th>Gambar</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
+            <?php
+            $no = 1;
+            $result = $koneksi->query("SELECT * FROM menu");
+            while ($row = $result->fetch_assoc()):
+            ?>
             <tr>
-              <td>1</td>
-              <td>Paket 1</td>
-              <td>Rp.30.000</td>
-              <td>Nasi Gudeg + Ayam Dada + Telur + Sambal + Kerupuk</td>
+              <td><?= $no++ ?></td>
+              <td><?= htmlspecialchars($row['nama_menu']) ?></td>
+              <td>Rp.<?= number_format($row['harga'], 0, ',', '.') ?></td>
+              <td><?= htmlspecialchars($row['deskripsi']) ?></td>
+              <td>
+                <?php if (!empty($row['gambar']) && file_exists('../' . $row['gambar'])): ?>
+                  <img src="../<?= htmlspecialchars($row['gambar']) ?>" class="menu-thumb" alt="Menu">
+                <?php else: ?>
+                  <small class="text-muted">Tidak ada gambar</small>
+                <?php endif; ?>
+              </td>
               <td>
                 <div class="d-flex gap-2">
-                  <button class="btn btn-sm btn-edit">Edit</button>
-                  <button class="btn btn-sm btn-delete">Hapus</button>
+                  <a href="editmenu.php?id_menu=<?= urlencode($row['id_menu']) ?>" class="btn btn-sm btn-edit">Edit</a>
+                  <a href="hapusmenu.php?id_menu=<?= urlencode($row['id_menu']) ?>" onclick="return confirm('Yakin ingin menghapus menu ini?')" class="btn btn-sm btn-delete">Hapus</a>
                 </div>
               </td>
             </tr>
-            <!-- Tambahkan baris menu lainnya di sini -->
+            <?php endwhile; ?>
           </tbody>
         </table>
       </div>

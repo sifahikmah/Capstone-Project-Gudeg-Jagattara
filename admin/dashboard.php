@@ -45,10 +45,10 @@
         <div class="text-center my-2">
           <img src="../assets/logo2.png" alt="Logo" width="180">
         </div>
-        <a href="dashboard.html" class="active">🏠 Dashboard</a>
-        <a href="kelolamenu.html">🍽 Kelola Menu</a>
-        <a href="pesanan.html">📥 Pesanan Masuk</a>
-        <a href="laporan.html">📊 Laporan Penjualan</a>
+        <a href="dashboard.php" class="active">🏠 Dashboard</a>
+        <a href="kelolamenu.php">🍽 Kelola Menu</a>
+        <a href="pesanan.php">📥 Pesanan Masuk</a>
+        <a href="laporan.phpl">📊 Laporan Penjualan</a>
         <a href="#">🚪 Logout</a>
       </div>
 

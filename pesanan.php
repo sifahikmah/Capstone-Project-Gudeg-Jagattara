@@ -91,7 +91,7 @@
 <body>
   <div class="container">
     <div class="order-summary">
-      <h4>Rincian Pemesanan</h4>
+      <h4>Pesanan Anda</h4>
       <div class="table-responsive">
         <table class="table table-bordered order-table" id="orderTable">
           <thead class="table-light">
@@ -103,34 +103,13 @@
               <th>Aksi</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Paket 1</td>
-              <td>
-                <button class="btn btn-sm btn-danger qty-btn" onclick="updateQty(this, -1)">-</button>
-                <span class="mx-2 qty">2</span>
-                <button class="btn btn-sm btn-success qty-btn" onclick="updateQty(this, 1)">+</button>
-              </td>
-              <td class="harga" data-harga="20000">Rp20.000</td>
-              <td class="total-item" data-total="40000">Rp40.000</td>
-              <td><button class="btn btn-sm btn-outline-danger" onclick="hapusPesanan(this)">Hapus</button></td>
-            </tr>
-            <tr>
-              <td>Paket 2</td>
-              <td>
-                <button class="btn btn-sm btn-danger qty-btn" onclick="updateQty(this, -1)">-</button>
-                <span class="mx-2 qty">1</span>
-                <button class="btn btn-sm btn-success qty-btn" onclick="updateQty(this, 1)">+</button>
-              </td>
-              <td class="harga" data-harga="25000">Rp25.000</td>
-              <td class="total-item" data-total="25000">Rp25.000</td>
-              <td><button class="btn btn-sm btn-outline-danger" onclick="hapusPesanan(this)">Hapus</button></td>
-            </tr>
+          <tbody id="orderBody">
+            <!-- Akan diisi lewat JavaScript -->
           </tbody>
           <tfoot>
             <tr>
               <td colspan="3" class="text-end">Total</td>
-              <td id="grandTotal">Rp65.000</td>
+              <td id="grandTotal">Rp0</td>
               <td></td>
             </tr>
           </tfoot>
@@ -143,14 +122,14 @@
       </div>
 
       <div class="d-flex justify-content-between mt-4 flex-wrap gap-2">
-        <a href="menu.html" class="btn btn-custom-yellow px-4">Tambah Pesanan</a>
-        <a href="pembayaran.html" class="btn btn-custom-green px-4">Checkout</a>
+        <a href="menu.php" class="btn btn-custom-yellow px-4">Tambah Pesanan</a>
+        <a href="pembayaran.php" class="btn btn-custom-green px-4">Checkout</a>
       </div>
     </div>
   </div>
 
   <script>
-    const formatRupiah = angka => {
+    function formatRupiah(angka) {
       return new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR',
@@ -158,39 +137,54 @@
       }).format(angka);
     }
 
-    function updateQty(button, delta) {
-      const qtySpan = button.parentElement.querySelector(".qty");
-      let qty = parseInt(qtySpan.textContent);
-      qty += delta;
+    function renderPesanan() {
+      const pesanan = JSON.parse(localStorage.getItem('pesanan')) || [];
+      const tbody = document.getElementById('orderBody');
+      tbody.innerHTML = ''; // kosongkan dulu
 
-      if (qty <= 0) {
-        button.closest("tr").remove();
-      } else {
-        qtySpan.textContent = qty;
-        const hargaEl = button.closest("tr").querySelector(".harga");
-        const harga = parseInt(hargaEl.getAttribute("data-harga"));
-        const totalItem = harga * qty;
+      let grandTotal = 0;
 
-        const totalEl = button.closest("tr").querySelector(".total-item");
-        totalEl.setAttribute("data-total", totalItem);
-        totalEl.textContent = formatRupiah(totalItem);
-      }
+      pesanan.forEach((item, index) => {
+        const total = item.harga * item.jumlah;
+        grandTotal += total;
 
-      updateGrandTotal();
-    }
-
-    function hapusPesanan(button) {
-      button.closest("tr").remove();
-      updateGrandTotal();
-    }
-
-    function updateGrandTotal() {
-      let total = 0;
-      document.querySelectorAll(".total-item").forEach(td => {
-        total += parseInt(td.getAttribute("data-total"));
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.nama}</td>
+          <td>
+            <button class="btn btn-sm btn-danger qty-btn" onclick="updateQty(${index}, -1)">-</button>
+            <span class="mx-2 qty">${item.jumlah}</span>
+            <button class="btn btn-sm btn-success qty-btn" onclick="updateQty(${index}, 1)">+</button>
+          </td>
+          <td class="harga" data-harga="${item.harga}">${formatRupiah(item.harga)}</td>
+          <td class="total-item" data-total="${total}">${formatRupiah(total)}</td>
+          <td><button class="btn btn-sm btn-outline-danger" onclick="hapusPesanan(${index})">Hapus</button></td>
+        `;
+        tbody.appendChild(row);
       });
-      document.getElementById("grandTotal").textContent = formatRupiah(total);
+
+      document.getElementById('grandTotal').textContent = formatRupiah(grandTotal);
     }
+
+    function updateQty(index, delta) {
+      const pesanan = JSON.parse(localStorage.getItem('pesanan')) || [];
+      pesanan[index].jumlah += delta;
+      if (pesanan[index].jumlah <= 0) {
+        pesanan.splice(index, 1); // hapus
+      }
+      localStorage.setItem('pesanan', JSON.stringify(pesanan));
+      renderPesanan();
+    }
+
+    function hapusPesanan(index) {
+      const pesanan = JSON.parse(localStorage.getItem('pesanan')) || [];
+      pesanan.splice(index, 1);
+      localStorage.setItem('pesanan', JSON.stringify(pesanan));
+      renderPesanan();
+    }
+
+    // Jalankan saat halaman dimuat
+    renderPesanan();
   </script>
 </body>
 </html>
