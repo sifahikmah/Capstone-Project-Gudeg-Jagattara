@@ -102,7 +102,7 @@ $dataJS = json_encode(array_values($dataPenjualan));
         <a href="dashboard.php" class="active">🏠 Dashboard</a>
         <a href="kelolamenu.php">🍽 Kelola Menu</a>
         <a href="pesanan.php">📥 Pesanan Masuk</a>
-        <a href="laporan.phpl">📊 Laporan Penjualan</a>
+        <a href="laporan.php">📊 Laporan Penjualan</a>
         <a href="logout.php">🚪 Logout</a>
       </div>
 
