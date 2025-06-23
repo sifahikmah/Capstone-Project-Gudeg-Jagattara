@@ -90,7 +90,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-transparent">
     <div class="container">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="index.php">
         <img src="./assets/logo.png" alt="Gudeg Jagattara" width="150">
       </a>
       <!-- Tombol hamburger untuk mobile -->
@@ -101,9 +101,9 @@
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAlt">
         <div class="navbar-nav fw-semibold">
-          <a class="nav-link me-3" href="index.html">Home</a>
+          <a class="nav-link me-3" href="index.php">Home</a>
           <a class="nav-link me-3" href="menu.php">Menu</a>
-          <a class="nav-link active" href="index.html#tentang">Tentang Kami</a>
+          <a class="nav-link active" href="index.php#tentang">Tentang Kami</a>
         </div>
       </div>
     </div>

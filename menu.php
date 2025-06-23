@@ -75,7 +75,7 @@ $result = $koneksi->query("SELECT * FROM menu");
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-transparent">
   <div class="container">
-    <a class="navbar-brand" href="index.html">
+    <a class="navbar-brand" href="index.php">
       <img src="./assets/logo.png" alt="Gudeg Jagattara" width="150">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAlt"
@@ -85,9 +85,9 @@ $result = $koneksi->query("SELECT * FROM menu");
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAlt">
       <div class="navbar-nav fw-semibold">
-        <a class="nav-link me-3" style="color: #135f22;" href="index.html">Home</a>
+        <a class="nav-link me-3" style="color: #135f22;" href="index.php">Home</a>
         <a class="nav-link active me-3" style="color: #135f22;" href="menu.php">Menu</a>
-        <a class="nav-link" style="color: #135f22;" href="index.html#tentang">Tentang Kami</a>
+        <a class="nav-link" style="color: #135f22;" href="index.php#tentang">Tentang Kami</a>
       </div>
     </div>
   </div>

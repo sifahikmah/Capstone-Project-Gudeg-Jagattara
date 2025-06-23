@@ -72,7 +72,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-transparent">
     <div class="container">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="index.php">
         <img src="./assets/logo.png" alt="Gudeg Jagattara" width="150">
       </a>
       <!-- Tombol hamburger untuk mobile -->
@@ -83,9 +83,9 @@
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAlt">
           <div class="navbar-nav fw-semibold">
-            <a class="nav-link active me-3" style="color: #135f22;" href="index.html">Home</a>
+            <a class="nav-link active me-3" style="color: #135f22;" href="index.php">Home</a>
             <a class="nav-link me-3" style="color: #135f22;" href="menu.php">Menu</a>
-            <a class="nav-link" style="color: #135f22;" href="index.html#tentang">Tentang Kami</a>
+            <a class="nav-link" style="color: #135f22;" href="index.php#tentang">Tentang Kami</a>
           </div>
         </div>
     </div>
@@ -180,7 +180,7 @@
             Gudeg Jagattara adalah UMKM rumahan dari Desa Wonokerto, Wonosobo, yang berdiri sejak 2019. Didirikan oleh Ibu Nur Hikmah, usaha ini lahir dari semangat belajar otodidak dan kecintaannya pada kuliner tradisional Indonesia, terutama Gudeg. Berkat dedikasi dan eksperimen dapur, terciptalah cita rasa Gudeg khas yang menggugah selera.
             Kami mengutamakan bahan berkualitas, rasa autentik, dan pelayanan ramah. Selain Gudeg, tersedia juga menu favorit seperti Nasi Padang dan Ayam Goreng. Dengan konsep dapur rumahan, Jagattara siap melayani kebutuhan kuliner harian maupun acara spesial.
           </p>
-          <a href="galeri.html" class="btn btn-green mt-4">Lihat Galeri</a>
+          <a href="galeri.php" class="btn btn-green mt-4">Lihat Galeri</a>
         </div>
       </div>
   </section>
