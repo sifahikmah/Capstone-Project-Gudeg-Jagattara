@@ -52,7 +52,7 @@ $result = $koneksi->query($query);
     }
     .table td {
       vertical-align: middle;
-      text-align: center;
+      text-align: left;
     }
     .btn-aksi {
       margin: 2px 0;
