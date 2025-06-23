@@ -102,7 +102,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAlt">
         <div class="navbar-nav fw-semibold">
           <a class="nav-link me-3" href="index.html">Home</a>
-          <a class="nav-link me-3" href="menu.html">Menu</a>
+          <a class="nav-link me-3" href="menu.php">Menu</a>
           <a class="nav-link active" href="index.html#tentang">Tentang Kami</a>
         </div>
       </div>

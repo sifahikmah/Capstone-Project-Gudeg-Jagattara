@@ -84,7 +84,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAlt">
           <div class="navbar-nav fw-semibold">
             <a class="nav-link active me-3" style="color: #135f22;" href="index.html">Home</a>
-            <a class="nav-link me-3" style="color: #135f22;" href="menu.html">Menu</a>
+            <a class="nav-link me-3" style="color: #135f22;" href="menu.php">Menu</a>
             <a class="nav-link" style="color: #135f22;" href="index.html#tentang">Tentang Kami</a>
           </div>
         </div>
@@ -103,7 +103,7 @@
             Gudeg Jagattara menyediakan berbagai masakan tradisional Indonesia dengan “Gudeg” sebagai menu spesialnya. 
           </p>
           <!-- <a href="#" class="btn btn-green me-2">Pesan Sekarang</a> -->
-          <a href="menu.html" class="btn btn-green me-2">Lihat Menu</a>
+          <a href="menu.php" class="btn btn-green me-2">Lihat Menu</a>
         </div>
         <div class="col-md-6 position-relative">
           <img src="./assets/gudeg2.png" alt="Gudeg" class="hero-img position-relative z-1 img-fluid">
@@ -144,7 +144,7 @@
         <div class="col-md-4 d-flex justify-content-center mb-4">
           <div class="menu-card">
             <div class="img-wrapper-small">
-              <img src="./assets/menu/paket 1.png" alt="Paket 1">
+              <img src="./assets/menu/paket1.png" alt="Paket 1">
             </div>
             <h5 class="mt-3">Paket 1</h5>
           </div>
@@ -166,7 +166,7 @@
           </div>
         </div>
       </div>
-      <a href="menu.html" class="btn btn-green mt-4">Lihat Selengkapnya</a>
+      <a href="menu.php" class="btn btn-green mt-4">Lihat Selengkapnya</a>
     </div>
   </section>
 
