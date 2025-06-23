@@ -90,11 +90,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="text-center my-2">
           <img src="../assets/logo2.png" alt="Logo" width="180">
         </div>
-        <a href="dashboard.html">🏠 Dashboard</a>
-        <a href="kelolamenu.html">🍽 Kelola Menu</a>
-        <a href="pesanan.html" class="active">📥 Pesanan Masuk</a>
-        <a href="laporan.html">📊 Laporan Penjualan</a>
-        <a href="#">🚪 Logout</a>
+        <a href="dashboard.php">🏠 Dashboard</a>
+        <a href="kelolamenu.php">🍽 Kelola Menu</a>
+        <a href="pesanan.php" class="active">📥 Pesanan Masuk</a>
+        <a href="laporan.php">📊 Laporan Penjualan</a>
+        <a href="logout.php">🚪 Logout</a>
       </div>
 
       <!-- Main Content -->
