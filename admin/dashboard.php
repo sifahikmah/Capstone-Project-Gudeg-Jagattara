@@ -1,3 +1,57 @@
+<?php
+session_start();
+include '../koneksi.php';
+
+// Query jumlah menu
+$resultMenu = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM menu");
+$totalMenu = mysqli_fetch_assoc($resultMenu)['total'] ?? 0;
+
+// Query jumlah pesanan masuk (status = 'menunggu')
+$resultPesanan = mysqli_query($koneksi, "SELECT COUNT(*) AS total FROM pesanan WHERE status = 'menunggu'");
+$pesananMasuk = mysqli_fetch_assoc($resultPesanan)['total'] ?? 0;
+
+// Query total penjualan (status = 'diterima')
+$resultPenjualan = mysqli_query($koneksi, "SELECT SUM(total) AS total FROM pesanan WHERE status = 'diterima'");
+$totalPenjualan = mysqli_fetch_assoc($resultPenjualan)['total'] ?? 0;
+
+// Query pelanggan unik
+$resultPelanggan = mysqli_query($koneksi, "SELECT COUNT(DISTINCT nama_pembeli) AS total FROM pesanan");
+$jumlahPelanggan = mysqli_fetch_assoc($resultPelanggan)['total'] ?? 0;
+
+// Grafik penjualan harian
+$salesQuery = "SELECT 
+    DAYNAME(created_at) AS hari,
+    COUNT(*) AS total
+  FROM pesanan
+  WHERE status = 'diterima'
+  GROUP BY DAYOFWEEK(created_at)";
+
+$salesResult = mysqli_query($koneksi, $salesQuery);
+
+// Inisialisasi 0 untuk semua hari
+$hariList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+$dataPenjualan = array_fill_keys($hariList, 0);
+
+// Isi data dari DB
+while ($row = mysqli_fetch_assoc($salesResult)) {
+    $dataPenjualan[$row['hari']] = $row['total'];
+}
+
+// Ganti ke Bahasa Indonesia
+$labelHari = [
+    'Monday'    => 'Senin',
+    'Tuesday'   => 'Selasa',
+    'Wednesday' => 'Rabu',
+    'Thursday'  => 'Kamis',
+    'Friday'    => 'Jumat',
+    'Saturday'  => 'Sabtu',
+    'Sunday'    => 'Minggu',
+];
+
+$labelsJS = json_encode(array_values($labelHari));
+$dataJS = json_encode(array_values($dataPenjualan));
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -49,7 +103,7 @@
         <a href="kelolamenu.php">🍽 Kelola Menu</a>
         <a href="pesanan.php">📥 Pesanan Masuk</a>
         <a href="laporan.phpl">📊 Laporan Penjualan</a>
-        <a href="#">🚪 Logout</a>
+        <a href="logout.php">🚪 Logout</a>
       </div>
 
       <!-- Main Content -->
@@ -61,25 +115,25 @@
           <div class="col-md-3">
             <div class="summary-box">
               Total Menu
-              <div class="fs-4 text-primary mt-2">6</div>
+              <div class="fs-4 text-primary mt-2"><?= $totalMenu ?></div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="summary-box">
               Pesanan Masuk
-              <div class="fs-4 text-primary mt-2">5</div>
+              <div class="fs-4 text-primary mt-2"><?= $pesananMasuk ?></div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="summary-box">
               Total Penjualan
-              <div class="fs-4 text-primary mt-2">20</div>
+              <div class="fs-4 text-primary mt-2">Rp <?= number_format($totalPenjualan, 0, ',', '.') ?></div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="summary-box">
               Pelanggan
-              <div class="fs-4 text-primary mt-2">6</div>
+              <div class="fs-4 text-primary mt-2"><?= $jumlahPelanggan ?></div>
             </div>
           </div>
         </div>
@@ -89,7 +143,7 @@
     </div>
   </div>
   
-  <script>
+  <!-- <script>
     const ctx = document.getElementById('salesChart').getContext('2d');
     new Chart(ctx, {
       type: 'bar',
@@ -110,6 +164,33 @@
                 return 'Rp ' + value.toLocaleString('id-ID');
               }
             }
+          }
+        }
+      }
+    });
+  </script> -->
+
+  <script>
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const labels = <?= $labelsJS ?>;
+    const data = <?= $dataJS ?>;
+    
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Jumlah Pesanan Selesai',
+          data: data,
+          backgroundColor: '#002f6c'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            precision: 0,
+            ticks: { stepSize: 1 }
           }
         }
       }

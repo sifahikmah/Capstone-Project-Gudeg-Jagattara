@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <a href="kelolamenu.php" class="active">🍽 Kelola Menu</a>
       <a href="pesanan.html">📥 Pesanan Masuk</a>
       <a href="laporan.html">📊 Laporan Penjualan</a>
-      <a href="#">🚪 Logout</a>
+      <a href="logout.php">🚪 Logout</a>
     </div>
 
     <!-- Main Content -->
