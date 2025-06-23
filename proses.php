@@ -59,9 +59,9 @@ if (!$id) {
           window.location.href = 'berhasil.php?id=<?= $id ?>';
         } else if (data.status === 'ditolak') {
           clearInterval(interval);
-          alert('Pesanan Anda ditolak.');
-          window.location.href = 'menu.php';
+          window.location.href = 'gagal.php';
         }
+
       })
       .catch(err => console.error("Gagal memeriksa status:", err));
   }, 5000);
