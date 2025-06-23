@@ -99,12 +99,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       </div>
       <a href="dashboard.php">🏠 Dashboard</a>
       <a href="kelolamenu.php" class="active">🍽 Kelola Menu</a>
-<<<<<<< HEAD
       <a href="pesanan.php">📥 Pesanan Masuk</a>
       <a href="laporan.php">📊 Laporan Penjualan</a>
-      <a href="#">🚪 Logout</a>
-=======
->>>>>>> cedf297f3dce935fb40d21287ec77d21c9e038e4
+      <a href="logout.php">🚪 Logout</a>
     </div>
 
     <!-- Main Content -->

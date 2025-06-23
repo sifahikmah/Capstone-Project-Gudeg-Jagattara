@@ -1,7 +1,9 @@
 <?php include '../koneksi.php'; 
 
 $query = "
-  SELECT p.*, GROUP_CONCAT(CONCAT(m.nama_menu, ' (', d.jumlah, 'x)') SEPARATOR '<br>') as daftar_menu
+  SELECT p.*, GROUP_CONCAT(CONCAT(
+    IFNULL(m.nama_menu, d.nama_menu_manual), ' (', d.jumlah, 'x)'
+  ) SEPARATOR '<br>') as daftar_menu
   FROM pesanan p
   LEFT JOIN detail_pesanan d ON p.id_pesanan = d.id_pesanan
   LEFT JOIN menu m ON d.id_menu = m.id_menu
@@ -76,7 +78,7 @@ $result = $koneksi->query($query);
       <!-- Main content -->
       <div class="col-md-10 content">
         <h4 class="fw-bold">Pesanan Masuk</h4>
-                <a href="tambahmenu.php" class="btn btn-add mb-3 mt-3">+ Tambah Menu</a>
+        <a href="tambah_pesanan.php" class="btn btn-add mb-3 mt-3">+ Tambah Pesanan</a>
 
         <table class="table table-bordered align-middle">
           <thead>
@@ -99,7 +101,7 @@ $result = $koneksi->query($query);
               <tr>
                 <td><?= $no++ ?></td>
                 <td><?= htmlspecialchars($row['nama_pembeli']) ?></td>
-                <td><?= $row['daftar_menu'] ?></td>
+                <td><?= $row['daftar_menu'] ?: '-' ?></td>
                 <td>Rp<?= number_format($row['total'], 0, ',', '.') ?></td>
                 <td><?= $row['metode_pengantaran'] ?><br><?= $row['metode_pembayaran'] ?></td>
                 <td><?= $row['alamat'] ? htmlspecialchars($row['alamat']) : '-' ?></td>
