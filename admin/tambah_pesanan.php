@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $alamat   = '-';
   $pengantaran = '-';
   $pembayaran  = '-';
-  $status   = 'selesai';
+  $status   = 'diterima';
 
   // Simpan ke tabel pesanan terlebih dahulu
   $stmt = $koneksi->prepare("INSERT INTO pesanan 
