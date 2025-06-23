@@ -67,7 +67,7 @@
         <a href="kelolamenu.php" class="active">🍽 Kelola Menu</a>
         <a href="pesanan.php">📥 Pesanan Masuk</a>
         <a href="laporan.php">📊 Laporan Penjualan</a>
-        <a href="#">🚪 Logout</a>
+        <a href="logout.php">🚪 Logout</a>
       </div>
 
       <!-- Main content -->

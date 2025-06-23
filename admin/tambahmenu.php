@@ -87,11 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="text-center my-2">
           <img src="../assets/logo2.png" alt="Logo" width="180">
         </div>
+<<<<<<< HEAD
         <a href="dashboard.php">🏠 Dashboard</a>
         <a href="kelolamenu.php" class="active">🍽 Kelola Menu</a>
         <a href="pesanan.php">📥 Pesanan Masuk</a>
         <a href="laporan.php">📊 Laporan Penjualan</a>
-        <a href="#">🚪 Logout</a>
+        <a href="logout.php">🚪 Logout</a>
+=======
+>>>>>>> cedf297f3dce935fb40d21287ec77d21c9e038e4
       </div>
 
       <!-- Main Content -->

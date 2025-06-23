@@ -70,7 +70,7 @@ $result = $koneksi->query($query);
         <a href="kelolamenu.php">🍽 Kelola Menu</a>
         <a href="pesanan.php" class="active">📥 Pesanan Masuk</a>
         <a href="laporan.php">📊 Laporan Penjualan</a>
-        <a href="#">🚪 Logout</a>
+        <a href="logout.php">🚪 Logout</a>
       </div>
 
       <!-- Main content -->

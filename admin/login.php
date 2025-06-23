@@ -1,3 +1,24 @@
+<?php
+session_start();
+include '../koneksi.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
+
+    $query = "SELECT * FROM admin WHERE username='$username' AND password='$password'";
+    $result = mysqli_query($koneksi, $query); // pakai $koneksi, bukan $conn
+
+    if (mysqli_num_rows($result) === 1) {
+        $_SESSION['username'] = $username;
+        header("Location: dashboard.php");
+    } else {
+        echo "<script>alert('Username atau Password salah!'); window.location='index.html';</script>";
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -47,9 +68,9 @@
       <img src="../assets/logo2.png" alt="Logo" width="200px">
     </div>
     <h2>Login Admin</h2>
-    <form>
-      <input type="text" class="form-control" placeholder="Username">
-      <input type="password" class="form-control" placeholder="Password">
+    <form action="login.php" method="POST">
+      <input type="text" name="username" class="form-control" placeholder="Username" required>
+      <input type="password" name="password" class="form-control" placeholder="Password" required>
       <button type="submit" class="btn btn-login w-100 mt-2">Login</button>
     </form>
   </div>
