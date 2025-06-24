@@ -116,10 +116,10 @@
         </table>
       </div>
 
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="catatan" class="form-label fw-medium">Catatan Tambahan</label>
         <textarea id="catatan" class="form-control" rows="2" placeholder="Isi jika ada catatan tambahan..."></textarea>
-      </div>
+      </div> -->
 
       <div class="d-flex justify-content-between mt-4 flex-wrap gap-2">
         <a href="menu.php" class="btn btn-custom-yellow px-4">Tambah Pesanan</a>
