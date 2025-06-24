@@ -21,24 +21,27 @@ if ($totalPendapatan === null) $totalPendapatan = 0;
 // Detail Semua Pesanan
 $detailPesanan = mysqli_query($koneksi, "
   SELECT p.nama_pembeli, p.created_at, 
-         GROUP_CONCAT(m.nama_menu SEPARATOR '<br>') AS menu,
+         GROUP_CONCAT(COALESCE(m.nama_menu, d.nama_menu_manual) SEPARATOR '<br>') AS menu,
          GROUP_CONCAT(d.jumlah SEPARATOR '<br>') AS jumlah,
          p.total
   FROM pesanan p
   JOIN detail_pesanan d ON p.id_pesanan = d.id_pesanan
-  JOIN menu m ON d.id_menu = m.id_menu
+  LEFT JOIN menu m ON d.id_menu = m.id_menu
   WHERE p.status = 'diterima'
   GROUP BY p.id_pesanan
 ");
 
 // Rekap per Menu
 $rekapMenu = mysqli_query($koneksi, "
-  SELECT m.nama_menu, SUM(d.jumlah) AS total_jual, SUM(d.jumlah * d.harga_satuan) AS pendapatan
-  FROM detail_pesanan d
-  JOIN menu m ON d.id_menu = m.id_menu
-  JOIN pesanan p ON d.id_pesanan = p.id_pesanan
-  WHERE p.status = 'diterima'
-  GROUP BY d.id_menu
+SELECT 
+COALESCE(m.nama_menu, d.nama_menu_manual) AS nama_menu,
+SUM(d.jumlah) AS total_jual,
+SUM(d.jumlah * d.harga_satuan) AS pendapatan
+FROM detail_pesanan d
+JOIN pesanan p ON d.id_pesanan = p.id_pesanan
+LEFT JOIN menu m ON d.id_menu = m.id_menu
+WHERE p.status = 'diterima'
+GROUP BY nama_menu
 ");
 ?>
 

@@ -134,8 +134,12 @@ $result = $koneksi->query("SELECT * FROM menu");
       </div>
     </div>
     <div class="row mt-1">
-      <div class="col text-center">
-        <p><img src="./assets/footer/whatsapp.png" width="25" class="me-2"> Hubungi Kami Sekarang</p>
+        <div class="col text-center">
+          <a href="https://wa.me/6281327456736" target="_blank" style="text-decoration: none; color: inherit;">
+            <img src="./assets/footer/whatsapp.png" alt="whatsapp" width="25" class="me-2">
+            Hubungi Kami Sekarang
+          </a>
+        </div>
       </div>
     </div>
   </div>
