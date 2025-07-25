@@ -107,8 +107,25 @@ if (!$terlaris) {
       <div class="navbar-nav fw-semibold">
         <a class="nav-link active me-3" style="color: #135f22;" href="index.php">Home</a>
         <a class="nav-link me-3" style="color: #135f22;" href="menu.php">Menu</a>
-        <a class="nav-link" style="color: #135f22;" href="#tentang">Tentang Kami</a>
+        <a class="nav-link me-3" style="color: #135f22;" href="#tentang">Tentang Kami</a>
       </div>
+      <!-- Login / Dropdown -->
+      <?php if (isset($_SESSION['user'])): ?>
+        <!-- Sudah login -->
+        <div class="dropdown ">
+          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #135f22; font-weight:bold;">
+            Halo, <?= htmlspecialchars($_SESSION['user']['username']) ?>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="profile.php">Profil</a></li>
+            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+          </ul>
+        </div>
+      <?php else: ?>
+        <!-- Belum login -->
+        <a href="login.php" class="btn btn-outline-success me-2">Masuk</a>
+        <a href="signup.php" class="btn btn-green">Daftar</a>
+      <?php endif; ?>
     </div>
   </div>
 </nav>

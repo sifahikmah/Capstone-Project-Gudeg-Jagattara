@@ -3,12 +3,14 @@ include 'koneksi.php';
 
 $id = $_GET['id'] ?? 0;
 
-// Ambil data pesanan
-$stmt = $koneksi->prepare("SELECT * FROM pesanan WHERE id_pesanan = ?");
+// Ambil data pesanan + nama user
+$stmt = $koneksi->prepare("SELECT p.*, u.username AS nama_pembeli FROM pesanan p JOIN users u ON p.id_user = u.id_user WHERE p.id_pesanan = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $pesanan = $stmt->get_result()->fetch_assoc();
 $stmt->close();
+
+
 
 // Ambil detail menu
 $menuQuery = "
@@ -35,6 +37,7 @@ function formatRupiah($angka) {
   <title>Nota</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     body {
       background-color: #e7ffe7;
@@ -120,7 +123,14 @@ function formatRupiah($angka) {
   <hr>
   <p class="text-center"><strong>Terima kasih atas pesanan Anda</strong></p>
 </div>
-<a href="index.php" class="btn btn-success px-4 py-2"> Kembali ke Dashboard</a>
+<div class="text-center mt-4 d-flex justify-content-center gap-3">
+  <a href="index.php" class="btn btn-success px-4">
+    <i class="bi bi-arrow-left-circle"></i> Dashboard
+  </a>
+  <a href="https://wa.me/6281327456736?text=Halo%20saya%20ingin%20bertanya%20mengenai%20pemesanan%20yang%20sudah%20saya%20buat."  class="btn btn-outline-success px-4" target="_blank">
+    <i class="bi bi-whatsapp"></i> Hubungi Penjual
+  </a>
+</div>
 
 </body>
 </html>

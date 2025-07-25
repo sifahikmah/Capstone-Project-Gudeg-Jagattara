@@ -35,8 +35,14 @@ if (!$id) {
 
 <div class="success-box">
   <h3 class="mb-3 text-success">🎉 Pesanan Berhasil Dibuat</h3>
-  <p>Terima kasih! Pesanan Anda sudah diterima dan akan segera kami proses.</p>
-  <a href="nota.php?id=<?= $id ?>" class="btn btn-success mt-3">Lihat Nota</a>
+  <p class="mb-0">Terima kasih! Pesanan Anda sudah diterima dan akan segera kami proses.</p>
+  <p style="font-size: small;" class="mt-0">*Jika penjual belum menghubungi, silahkan hubungi penjual untuk informasi lebih lanjut!</p>
+  <a href="nota.php?id=<?= $id ?>" class="btn btn-success ">Lihat Nota</a>
+  <a href="https://wa.me/6281327456736?text=Halo%20saya%20ingin%20bertanya%20mengenai%20pemesanan%20yang%20sudah%20saya%20buat." 
+        target="_blank" 
+        class="btn btn-outline-success">
+        Hubungi Penjual
+  </a>
 </div>
 
 </body>

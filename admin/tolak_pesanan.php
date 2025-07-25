@@ -2,7 +2,8 @@
 include '../koneksi.php';
 
 $id = $_GET['id'];
-$koneksi->query("UPDATE pesanan SET status = 'ditolak' WHERE id_pesanan = $id");
+$query = "UPDATE pesanan SET status = 'tolak' WHERE id_pesanan = '$id'";
+mysqli_query($koneksi, $query);
 
 header("Location: pesanan.php");
 exit;

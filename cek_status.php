@@ -3,11 +3,12 @@ include 'koneksi.php';
 
 $id = $_GET['id'] ?? 0;
 
-$query = $koneksi->query("SELECT status FROM pesanan WHERE id_pesanan = $id");
+$query = "SELECT status FROM pesanan WHERE id_pesanan = '$id'";
+$result = mysqli_query($koneksi, $query);
 
-if ($query && $query->num_rows > 0) {
-  $row = $query->fetch_assoc();
-  echo json_encode(['status' => $row['status']]);
+if ($row = mysqli_fetch_assoc($result)) {
+  echo json_encode(['status' => strtolower($row['status'])]);
 } else {
-  echo json_encode(['status' => 'not_found']);
+  echo json_encode(['status' => 'menunggu']);
 }
+?>
