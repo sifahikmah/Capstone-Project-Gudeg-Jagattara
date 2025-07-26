@@ -1,29 +1,54 @@
 <?php
 session_start();
-require 'koneksi.php'; // file koneksi ke database
+require 'koneksi.php';
 
 $error = '';
+$max_attempts = 5;
+$lockout_time = 300; // 5 menit dalam detik
+
+// Inisialisasi session percobaan login
+if (!isset($_SESSION['login_attempts'])) {
+  $_SESSION['login_attempts'] = 0;
+  $_SESSION['last_attempt'] = 0;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $username = $_POST['username'];
+  $username = trim($_POST['username']);
   $password = $_POST['password'];
 
-  $stmt = $koneksi->prepare("SELECT * FROM users WHERE username = ?");
-  $stmt->bind_param("s", $username);
-  $stmt->execute();
-  $result = $stmt->get_result();
-
-  if ($result->num_rows === 1) {
-    $user = $result->fetch_assoc();
-    if (password_verify($password, $user['password'])) {
-      $_SESSION['user'] = $user;
-      header('Location: index.php');
-      exit;
-    } else {
-      $error = 'Password salah';
-    }
+  // Jika melebihi batas dan belum lewat 5 menit
+  if ($_SESSION['login_attempts'] >= $max_attempts && time() - $_SESSION['last_attempt'] < $lockout_time) {
+    $error = 'Terlalu banyak percobaan login. Coba lagi dalam 5 menit.';
   } else {
-    $error = 'Username tidak ditemukan';
+    // Validasi karakter
+    if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+      $error = 'Username hanya boleh huruf, angka, dan underscore (_)';
+    } elseif (strlen($username) < 3 || strlen($password) < 6) {
+      $error = 'Username minimal 3 karakter dan password minimal 6 karakter.';
+    } else {
+      $stmt = $koneksi->prepare("SELECT * FROM users WHERE username = ?");
+      $stmt->bind_param("s", $username);
+      $stmt->execute();
+      $result = $stmt->get_result();
+
+      if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+          $_SESSION['user'] = $user;
+          $_SESSION['login_attempts'] = 0; // reset kalau berhasil login
+          header('Location: index.php');
+          exit;
+        } else {
+          $error = 'Password salah';
+          $_SESSION['login_attempts']++;
+          $_SESSION['last_attempt'] = time();
+        }
+      } else {
+        $error = 'Username tidak ditemukan';
+        $_SESSION['login_attempts']++;
+        $_SESSION['last_attempt'] = time();
+      }
+    }
   }
 }
 ?>
@@ -45,19 +70,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .card {
       border-radius: 1rem;
     }
+    .logo img {
+      display: block;
+      margin: 0 auto 1rem;
+    }
     input:focus {
-        border-color: #28a745 !important;   
-        box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25) !important;
+      border-color: #28a745 !important;
+      box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25) !important;
     }
   </style>
 </head>
 <body>
   <div class="container d-flex justify-content-center align-items-center login-container">
     <div class="card shadow p-4 w-100" style="max-width: 400px;">
+      <div class="logo">
+        <img src="./assets/logo.png" alt="Logo Gudeg" width="180">
+      </div>
       <h3 class="mb-4 text-center">Masuk</h3>
 
       <?php if ($error): ?>
-        <div class="alert alert-danger"><?= $error ?></div>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
       <?php endif; ?>
 
       <form method="POST">

@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include 'koneksi.php';
@@ -93,64 +92,63 @@ if (!$terlaris) {
   </style>
 </head>
 <body>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-transparent">
-  <div class="container">
-    <a class="navbar-brand" href="index.php">
-      <img src="./assets/logo.png" alt="Gudeg Jagattara" width="150">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAlt">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAlt">
-      <div class="navbar-nav fw-semibold">
-        <a class="nav-link active me-3" style="color: #135f22;" href="index.php">Home</a>
-        <a class="nav-link me-3" style="color: #135f22;" href="menu.php">Menu</a>
-        <a class="nav-link me-3" style="color: #135f22;" href="#tentang">Tentang Kami</a>
-      </div>
-      <!-- Login / Dropdown -->
-      <?php if (isset($_SESSION['user'])): ?>
-        <!-- Sudah login -->
-        <div class="dropdown ">
-          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #135f22; font-weight:bold;">
-            Halo, <?= htmlspecialchars($_SESSION['user']['username']) ?>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="profile.php">Profil</a></li>
-            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-          </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-transparent">
+    <div class="container">
+      <a class="navbar-brand" href="index.php">
+        <img src="./assets/logo.png" alt="Gudeg Jagattara" width="150">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAlt">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAlt">
+        <div class="navbar-nav fw-semibold">
+          <a class="nav-link active me-3" style="color: #135f22;" href="index.php">Home</a>
+          <a class="nav-link me-3" style="color: #135f22;" href="menu.php">Menu</a>
+          <a class="nav-link me-3" style="color: #135f22;" href="#tentang">Tentang Kami</a>
         </div>
-      <?php else: ?>
-        <!-- Belum login -->
-        <a href="login.php" class="btn btn-outline-success me-2">Masuk</a>
-        <a href="signup.php" class="btn btn-green">Daftar</a>
-      <?php endif; ?>
-    </div>
-  </div>
-</nav>
-
-<!-- Hero -->
-<section class="pt-3 pb-5 position-relative">
-  <div class="container">
-    <div class="row"> 
-      <div class="col-md-6 hero-text animate__animated animate__fadeIn"> 
-        <h1 style="color: #135f22;" class="fw-bolder mb-4 mt-5 animate__animated animate__fadeInDown">
-          Bersantap dengan Rasa,<br>Jagattara Selalu Ada!
-        </h1>
-        <p style="color: #418a4f;" class="fw-bold mb-5 fs-6 animate__animated animate__fadeInUp">
-          Gudeg Jagattara menyediakan berbagai masakan tradisional Indonesia dengan “Gudeg” sebagai menu spesialnya. 
-        </p>
-        <a href="menu.php" class="btn btn-green me-2">Lihat Menu</a>
-      </div>
-      <div class="col-md-6 position-relative">
-        <img src="./assets/gudeg2.png" alt="Gudeg" class="hero-img position-relative z-1 img-fluid">
+        <!-- Login / Dropdown -->
+        <?php if (isset($_SESSION['user'])): ?>
+          <!-- Sudah login -->
+          <div class="dropdown ">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #135f22; font-weight:bold;">
+              Halo, <?= htmlspecialchars($_SESSION['user']['username']) ?>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="profile.php">Profil</a></li>
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+          </div>
+        <?php else: ?>
+          <!-- Belum login -->
+          <a href="login.php" class="btn btn-outline-success me-2">Masuk</a>
+          <a href="signup.php" class="btn btn-green">Daftar</a>
+        <?php endif; ?>
       </div>
     </div>
-  </div>
-</section>
+  </nav>
 
-<!-- Fitur Section -->
+  <!-- Hero -->
+  <section class="pt-3 pb-5 position-relative">
+    <div class="container">
+      <div class="row"> 
+        <div class="col-md-6 hero-text animate__animated animate__fadeIn"> 
+          <h1 style="color: #135f22;" class="fw-bolder mb-4 mt-5 animate__animated animate__fadeInDown">
+            Bersantap dengan Rasa,<br>Jagattara Selalu Ada!
+          </h1>
+          <p style="color: #418a4f;" class="fw-bold mb-5 fs-6 animate__animated animate__fadeInUp">
+            Gudeg Jagattara menyediakan berbagai masakan tradisional Indonesia dengan “Gudeg” sebagai menu spesialnya. 
+          </p>
+          <a href="menu.php" class="btn btn-green me-2">Lihat Menu</a>
+        </div>
+        <div class="col-md-6 position-relative">
+          <img src="./assets/gudeg2.png" alt="Gudeg" class="hero-img position-relative z-1 img-fluid">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fitur Section -->
   <section class="py-5 bg-white text-center">
     <div class="container-fluid px-4 px-md-5">
       <h3 class="mb-5 fw-bold" style="color: #135f22;" >Pilihan Cerdas Pecinta Kuliner</h3>
@@ -174,69 +172,69 @@ if (!$terlaris) {
     </div>
   </section>
 
-        <!-- Menu Favorit -->
-        <section class="py-5 text-center">
-        <div class="container">
-        <h3 class="mb-5 fw-bold" style="color: #135f22;">Menu Favorit</h3>
-        <div class="row justify-content-center">
+  <!-- Menu Favorit -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h3 class="mb-5 fw-bold" style="color: #135f22;">Menu Favorit</h3>
+      <div class="row justify-content-center">
         <?php while ($row = mysqli_fetch_assoc($terlaris)) : ?>
-        <div class="col-md-4 d-flex justify-content-center mb-4">
-          <div class="menu-card">
-            <?php
-              // ambil nama menu dari database
-              $nama_menu = strtolower($row['nama_menu']);
+          <div class="col-md-4 d-flex justify-content-center mb-4">
+            <div class="menu-card">
+              <?php
+                // ambil nama menu dari database
+                $nama_menu = strtolower($row['nama_menu']);
 
-              // tentukan gambar berdasarkan nama menu
-              switch ($nama_menu) {
-                case 'paket 1':
-                  $gambar = 'paket1.png';
-                  break;
-                case 'paket 2':
-                  $gambar = 'paket2.png';
-                  break;
-                case 'paket 3':
-                  $gambar = 'paket3.png';
-                  break;
-                case 'paket 4':
-                  $gambar = 'paket4.png';
-                  break;
-                case 'opor':
-                  $gambar = 'opor.png';
-                  break;
-                default:
-                  $gambar = 'default.png'; // fallback kalau nama gak cocok
-                  break;
-              }
-            ?>
-            <div class="img-wrapper-small">
-              <img src="./assets/menu/<?= $gambar ?>" alt="<?= htmlspecialchars($row['nama_menu']) ?>">
+                // tentukan gambar berdasarkan nama menu
+                switch ($nama_menu) {
+                  case 'paket 1':
+                    $gambar = 'paket1.png';
+                    break;
+                  case 'paket 2':
+                    $gambar = 'paket2.png';
+                    break;
+                  case 'paket 3':
+                    $gambar = 'paket3.png';
+                    break;
+                  case 'paket 4':
+                    $gambar = 'paket4.png';
+                    break;
+                  case 'opor':
+                    $gambar = 'opor.png';
+                    break;
+                  default:
+                    $gambar = 'default.png'; // fallback kalau nama gak cocok
+                    break;
+                }
+              ?>
+              <div class="img-wrapper-small">
+                <img src="./assets/menu/<?= $gambar ?>" alt="<?= htmlspecialchars($row['nama_menu']) ?>">
+              </div>
+              <h5 class="mt-3"><?= htmlspecialchars($row['nama_menu']) ?></h5>
+              <p class="text-muted small">Terjual <?= $row['total_terjual'] ?> porsi</p>
             </div>
-            <h5 class="mt-3"><?= htmlspecialchars($row['nama_menu']) ?></h5>
-            <p class="text-muted small">Terjual <?= $row['total_terjual'] ?> porsi</p>
           </div>
-        </div>
-      <?php endwhile; ?>
+        <?php endwhile; ?>
+      </div>
+      <a href="menu.php" class="btn btn-green mt-4">Lihat Selengkapnya</a>
     </div>
-    <a href="menu.php" class="btn btn-green mt-4">Lihat Selengkapnya</a>
-  </div>
-</section>
+  </section>
 
-<!-- Tentang -->
-<section id="tentang" class="py-5 bg-white text-center">
-  <div class="container-fluid px-4 px-md-5">
-    <img src="./assets/image-tk.png" alt="decoration" width="60">
-    <h3 class="mt-4 mb-4 fw-bold" style="color: #135f22;" >Tentang Gudeg Jagattara</h3>
-    <div class="justify-content-center fw-semibold">
-      <p>
-        Gudeg Jagattara adalah UMKM rumahan dari Desa Wonokerto, Wonosobo, yang berdiri sejak 2019. Didirikan oleh Ibu Nur Hikmah, usaha ini lahir dari semangat belajar otodidak dan kecintaannya pada kuliner tradisional Indonesia, terutama Gudeg. Berkat dedikasi dan eksperimen dapur, terciptalah cita rasa Gudeg khas yang menggugah selera.
-        Kami mengutamakan bahan berkualitas, rasa autentik, dan pelayanan ramah.
-      </p>
-      <a href="galeri.php" class="btn btn-green mt-4">Lihat Galeri</a>
+  <!-- Tentang -->
+  <section id="tentang" class="py-5 bg-white text-center">
+    <div class="container-fluid px-4 px-md-5">
+      <img src="./assets/image-tk.png" alt="decoration" width="60">
+      <h3 class="mt-4 mb-4 fw-bold" style="color: #135f22;" >Tentang Gudeg Jagattara</h3>
+      <div class="justify-content-center fw-semibold">
+        <p>
+          Gudeg Jagattara adalah UMKM rumahan dari Desa Wonokerto, Wonosobo, yang berdiri sejak 2019. Didirikan oleh Ibu Nur Hikmah, usaha ini lahir dari semangat belajar otodidak dan kecintaannya pada kuliner tradisional Indonesia, terutama Gudeg. Berkat dedikasi dan eksperimen dapur, terciptalah cita rasa Gudeg khas yang menggugah selera.
+          Kami mengutamakan bahan berkualitas, rasa autentik, dan pelayanan ramah.
+        </p>
+        <a href="galeri.php" class="btn btn-green mt-4">Lihat Galeri</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Footer -->
+  <!-- Footer -->
   <footer class="text-center">
     <div class="container py-4">
       <div class="row justify-content-center">

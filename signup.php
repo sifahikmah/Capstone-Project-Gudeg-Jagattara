@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'koneksi.php'; // file koneksi ke database
+require 'koneksi.php';
 
 $error = '';
 $success = '';
@@ -10,10 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $password = $_POST['password'];
   $konfirmasi = $_POST['konfirmasi'];
 
-  if ($password !== $konfirmasi) {
+  if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+    $error = 'Username hanya boleh huruf, angka, dan underscore (_)';
+  } elseif (strlen($password) < 6) {
+    $error = 'Password minimal 6 karakter.';
+  } elseif ($password !== $konfirmasi) {
     $error = 'Konfirmasi password tidak cocok';
   } else {
-    // cek apakah username sudah digunakan
     $stmt = $koneksi->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -22,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
       $error = 'Username sudah terdaftar';
     } else {
-      // simpan user baru
       $hashed = password_hash($password, PASSWORD_DEFAULT);
       $insert = $koneksi->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
       $insert->bind_param("ss", $username, $hashed);
@@ -36,13 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sign Up - Gudeg Jagattara</title>
+  <title>Daftar - Gudeg Jagattara</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
@@ -58,20 +59,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       border-color: #28a745 !important;
       box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25) !important;
     }
+    .logo img {
+      display: block;
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
   <div class="container d-flex justify-content-center align-items-center register-container">
     <div class="card shadow p-4 w-100" style="max-width: 400px;">
+      <div class="logo text-center mb-3">
+        <img src="./assets/logo.png" alt="Logo" width="180">
+      </div>
       <h3 class="mb-4 text-center">Daftar</h3>
 
       <?php if ($error): ?>
-        <div class="alert alert-danger"><?= $error ?></div>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
       <?php elseif ($success): ?>
-        <div class="alert alert-success"><?= $success ?> <a href="login.php">Login di sini</a></div>
+        <div class="alert alert-success"><?= htmlspecialchars($success) ?> <a href="login.php">Login di sini</a></div>
       <?php endif; ?>
 
-      <form method="POST">
+      <form method="POST" novalidate>
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
           <input type="text" name="username" id="username" class="form-control" required>
