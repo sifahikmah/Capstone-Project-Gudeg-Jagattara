@@ -2,23 +2,19 @@
 session_start();
 include 'koneksi.php';
 
-// Ambil 3 menu terlaris
+// Ambil 3 menu paling banyak dipesan (yang status pesanannya 'diterima')
 $query = "
-  SELECT 
-    COALESCE(m.nama_menu, d.nama_menu_manual) AS nama_menu,
-    m.gambar,
-    SUM(d.jumlah) AS total_terjual
-  FROM detail_pesanan d
-  JOIN pesanan p ON d.id_pesanan = p.id_pesanan
-  LEFT JOIN menu m ON d.id_menu = m.id_menu
-  WHERE p.status = 'diterima'
-  GROUP BY nama_menu, m.gambar
+  SELECT m.id_menu, m.nama_menu, m.gambar, COALESCE(SUM(dp.jumlah), 0) as total_terjual
+  FROM menu m
+  LEFT JOIN detail_pesanan dp ON m.id_menu = dp.id_menu
+  LEFT JOIN pesanan p ON dp.id_pesanan = p.id_pesanan AND p.status = 'diterima'
+  GROUP BY m.id_menu
   ORDER BY total_terjual DESC
   LIMIT 3
 ";
-$terlaris = mysqli_query($koneksi, $query);
+$result = mysqli_query($koneksi, $query);
 
-if (!$terlaris) {
+if (!$result) {
   die("Query gagal: " . mysqli_error($koneksi));
 }
 ?>
@@ -173,49 +169,34 @@ if (!$terlaris) {
   </section>
 
   <!-- Menu Favorit -->
-  <section class="py-5 text-center">
-    <div class="container">
-      <h3 class="mb-5 fw-bold" style="color: #135f22;">Menu Favorit</h3>
-      <div class="row justify-content-center">
-        <?php while ($row = mysqli_fetch_assoc($terlaris)) : ?>
-          <div class="col-md-4 d-flex justify-content-center mb-4">
-            <div class="menu-card">
-              <?php
-                // ambil nama menu dari database
-                $nama_menu = strtolower($row['nama_menu']);
+  <section class="menu-favorit text-center py-5" style="background-color: #eaffea;">
+    <h4 class="fw-bold text-green mb-4">Menu Favorit</h4>
 
-                // tentukan gambar berdasarkan nama menu
-                switch ($nama_menu) {
-                  case 'paket 1':
-                    $gambar = 'paket1.png';
-                    break;
-                  case 'paket 2':
-                    $gambar = 'paket2.png';
-                    break;
-                  case 'paket 3':
-                    $gambar = 'paket3.png';
-                    break;
-                  case 'paket 4':
-                    $gambar = 'paket4.png';
-                    break;
-                  case 'opor':
-                    $gambar = 'opor.png';
-                    break;
-                  default:
-                    $gambar = 'default.png'; // fallback kalau nama gak cocok
-                    break;
-                }
-              ?>
+    <div class="container">
+      <div class="row justify-content-center">
+        <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+          <div class="col-6 col-md-4 col-lg-3 mb-4">
+            <div class="menu-card">
               <div class="img-wrapper-small">
-                <img src="./assets/menu/<?= $gambar ?>" alt="<?= htmlspecialchars($row['nama_menu']) ?>">
+                <?php
+                  $gambar = (!empty($row['gambar']) && file_exists($row['gambar'])) 
+                            ? $row['gambar'] 
+                            : 'assets/menu/default.png';
+                ?>
+                <img src="<?= htmlspecialchars($gambar) ?>" 
+                    class="img-fluid rounded-circle border border-success" 
+                    style="width: 120px; height: 120px; object-fit: cover;" 
+                    alt="<?= htmlspecialchars($row['nama_menu']) ?>">
               </div>
-              <h5 class="mt-3"><?= htmlspecialchars($row['nama_menu']) ?></h5>
-              <p class="text-muted small">Terjual <?= $row['total_terjual'] ?> porsi</p>
+              <h6 class="mt-3 text-success fw-bold">
+                <?= htmlspecialchars($row['nama_menu']) ?>
+              </h6>
             </div>
           </div>
         <?php endwhile; ?>
       </div>
-      <a href="menu.php" class="btn btn-green mt-4">Lihat Selengkapnya</a>
+
+      <a href="menu.php" class="btn btn-green mt-3 px-4 py-2 fw-semibold">Lihat Selengkapnya</a>
     </div>
   </section>
 

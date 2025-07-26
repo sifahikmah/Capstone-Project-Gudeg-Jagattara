@@ -128,9 +128,7 @@ $jumlah_keranjang = mysqli_fetch_assoc($total_keranjang)['total'] ?? 0;
       }
     }
   </style>
-
 </head>
-
 <body>
   <div class="container py-4 mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -207,7 +205,6 @@ $jumlah_keranjang = mysqli_fetch_assoc($total_keranjang)['total'] ?? 0;
            Checkout
         </a>
       </div>
-
     <?php endif; ?>
   </div>
 

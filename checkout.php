@@ -74,99 +74,99 @@ if (empty($pesanan)) {
   </style>
 </head>
 <body>
-<div class="container py-5">
-  <h3 class="text-green fw-bold mb-4 text-center">Konfirmasi Pembayaran</h3>
-  <a href="keranjang.php" class="btn btn-success mb-3" style="font-size: small;">
-    <i class="bi bi-arrow-left-circle"></i> Kembali ke Keranjang
-  </a>
+  <div class="container py-5">
+    <h3 class="text-green fw-bold mb-4 text-center">Konfirmasi Pembayaran</h3>
+    <a href="keranjang.php" class="btn btn-success mb-3" style="font-size: small;">
+      <i class="bi bi-arrow-left-circle"></i> Kembali ke Keranjang
+    </a>
 
-  <!-- Ringkasan Pesanan -->
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
-      <h5 class="mb-3">Pesanan Anda:</h5>
-      <ul class="list-group list-group-flush">
-        <?php foreach ($pesanan as $item): ?>
-          <li class="list-group-item d-flex justify-content-between">
-            <div><?= htmlspecialchars($item['nama_menu']) ?> x <?= $item['jumlah'] ?></div>
-            <div>Rp<?= number_format($item['subtotal'], 0, ',', '.') ?></div>
-          </li>
-        <?php endforeach; ?>
-      </ul>
-      <hr>
-      <div class="d-flex justify-content-between">
-        <div>Total Pesanan</div>
-        <div id="totalAwal">Rp<?= number_format($total, 0, ',', '.') ?></div>
-      </div>
-      <div class="d-flex justify-content-between" id="ongkirRow" style="display:none;">
-        <div>Ongkos Kirim</div>
-        <div id="ongkirDisplay">Rp0</div>
-      </div>
-      <hr>
-      <div class="d-flex justify-content-between fw-bold text-success">
-        <div>Total Akhir</div>
-        <div id="totalAkhir">Rp<?= number_format($total, 0, ',', '.') ?></div>
+    <!-- Ringkasan Pesanan -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="mb-3">Pesanan Anda:</h5>
+        <ul class="list-group list-group-flush">
+          <?php foreach ($pesanan as $item): ?>
+            <li class="list-group-item d-flex justify-content-between">
+              <div><?= htmlspecialchars($item['nama_menu']) ?> x <?= $item['jumlah'] ?></div>
+              <div>Rp<?= number_format($item['subtotal'], 0, ',', '.') ?></div>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <div>Total Pesanan</div>
+          <div id="totalAwal">Rp<?= number_format($total, 0, ',', '.') ?></div>
+        </div>
+        <div class="d-flex justify-content-between" id="ongkirRow" style="display:none;">
+          <div>Ongkos Kirim</div>
+          <div id="ongkirDisplay">Rp0</div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between fw-bold text-success">
+          <div>Total Akhir</div>
+          <div id="totalAkhir">Rp<?= number_format($total, 0, ',', '.') ?></div>
+        </div>
       </div>
     </div>
+
+    <!-- Form Pembayaran -->
+    <form id="formPembayaran" action="proses_checkout.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow">
+      <div class="mb-3">
+        <label for="pengiriman" class="form-label mb-0">Metode Pengiriman</label>
+        <small class="text-muted d-block">*Jika memilih "Dikirim", ongkos kirim akan ditambahkan. Periksa kembali total akhir pesanan Anda.</small>
+        <select name="pengiriman" id="pengiriman" class="form-select" required>
+          <option value="">-- Pilih --</option>
+          <option value="diambil">Diambil</option>
+          <option value="dikirim">Dikirim</option>
+        </select>
+      </div>
+
+
+      <div class="mb-3" id="alamatField" style="display: none;">
+        <label for="alamat" class="form-label">Alamat Pengiriman</label>
+        <textarea name="alamat" id="alamat" class="form-control" placeholder="Tulis alamat lengkap..."></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="pembayaran" class="form-label">Metode Pembayaran</label>
+        <select name="pembayaran" id="pembayaran" class="form-select" required>
+          <option value="">-- Pilih --</option>
+          <option value="tunai">Tunai</option>
+          <option value="transfer">Transfer Bank</option>
+        </select>
+      </div>
+
+      <div class="mb-3" id="rekeningField" style="display: none;">
+        <label class="form-label">Transfer ke Rekening:</label>
+        <div class="bg-light p-2 rounded">
+          <strong>Bank BRI</strong><br>
+          No. Rekening: <strong>1234-5678-9012</strong><br>
+          Atas Nama: <strong>Gudeg Jagattara</strong>
+        </div>
+      </div>
+
+      <div class="mb-3" id="buktiTransferField" style="display: none;">
+        <label for="bukti" class="form-label">Upload Bukti Transfer</label>
+        <input type="file" name="bukti" id="bukti" class="form-control" accept="image/*">
+      </div>
+
+      <div class="mb-3">
+        <label for="catatan" class="form-label">Catatan Tambahan</label>
+        <textarea name="catatan" id="catatan" class="form-control" rows="2" placeholder="Contoh: Tidak pedas, tambah sambal, dll."></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="wa" class="form-label">Nomor WhatsApp</label>
+        <input type="text" name="wa" id="wa" class="form-control" placeholder="08xxxxxxxxxx" required>
+      </div>
+
+      <input type="hidden" name="total_akhir" id="inputTotalAkhir" value="<?= $total ?>">
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-success">Pesan Sekarang</button>
+      </div>
+    </form>
   </div>
-
-  <!-- Form Pembayaran -->
-  <form id="formPembayaran" action="proses_checkout.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow">
-    <div class="mb-3">
-      <label for="pengiriman" class="form-label mb-0">Metode Pengiriman</label>
-      <small class="text-muted d-block">*Jika memilih "Dikirim", ongkos kirim akan ditambahkan. Periksa kembali total akhir pesanan Anda.</small>
-      <select name="pengiriman" id="pengiriman" class="form-select" required>
-        <option value="">-- Pilih --</option>
-        <option value="diambil">Diambil</option>
-        <option value="dikirim">Dikirim</option>
-      </select>
-    </div>
-
-
-    <div class="mb-3" id="alamatField" style="display: none;">
-      <label for="alamat" class="form-label">Alamat Pengiriman</label>
-      <textarea name="alamat" id="alamat" class="form-control" placeholder="Tulis alamat lengkap..."></textarea>
-    </div>
-
-    <div class="mb-3">
-      <label for="pembayaran" class="form-label">Metode Pembayaran</label>
-      <select name="pembayaran" id="pembayaran" class="form-select" required>
-        <option value="">-- Pilih --</option>
-        <option value="tunai">Tunai</option>
-        <option value="transfer">Transfer Bank</option>
-      </select>
-    </div>
-
-    <div class="mb-3" id="rekeningField" style="display: none;">
-      <label class="form-label">Transfer ke Rekening:</label>
-      <div class="bg-light p-2 rounded">
-        <strong>Bank BRI</strong><br>
-        No. Rekening: <strong>1234-5678-9012</strong><br>
-        Atas Nama: <strong>Gudeg Jagattara</strong>
-      </div>
-    </div>
-
-    <div class="mb-3" id="buktiTransferField" style="display: none;">
-      <label for="bukti" class="form-label">Upload Bukti Transfer</label>
-      <input type="file" name="bukti" id="bukti" class="form-control" accept="image/*">
-    </div>
-
-    <div class="mb-3">
-      <label for="catatan" class="form-label">Catatan Tambahan</label>
-      <textarea name="catatan" id="catatan" class="form-control" rows="2" placeholder="Contoh: Tidak pedas, tambah sambal, dll."></textarea>
-    </div>
-
-    <div class="mb-3">
-      <label for="wa" class="form-label">Nomor WhatsApp</label>
-      <input type="text" name="wa" id="wa" class="form-control" placeholder="08xxxxxxxxxx" required>
-    </div>
-
-    <input type="hidden" name="total_akhir" id="inputTotalAkhir" value="<?= $total ?>">
-
-    <div class="d-grid">
-      <button type="submit" class="btn btn-success">Pesan Sekarang</button>
-    </div>
-  </form>
-</div>
 
 <script>
   const pengiriman = document.getElementById('pengiriman');

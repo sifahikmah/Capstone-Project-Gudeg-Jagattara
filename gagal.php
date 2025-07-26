@@ -29,8 +29,7 @@
   </style>
 </head>
 <body>
-
-<div class="box">
+  <div class="box">
     <div class="icon mb-3">❌</div>
     <h4>Pesanan Gagal</h4>
     <p class="text-muted">
@@ -45,7 +44,6 @@
         Hubungi Penjual
       </a>
     </div>
-</div>
-
+  </div>
 </body>
 </html>

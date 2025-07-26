@@ -89,7 +89,6 @@
   </style>
 </head>
 <body>
-
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-transparent">
     <div class="container">

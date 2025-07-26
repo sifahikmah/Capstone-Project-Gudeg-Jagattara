@@ -204,60 +204,58 @@ $result = $koneksi->query("SELECT * FROM menu");
 
   <!-- Notif Harus Login -->
   <?php if (isset($_GET['notif']) && $_GET['notif'] == 'login'): ?>
-  <style>
-    /* Blur semua konten di belakang */
-    .blur-content *:not(.custom-alert):not(.custom-alert *) {
-      filter: blur(5px);
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .custom-alert {
-      animation: fadeIn 0.5s ease;
-      width: 90%;
-      max-width: 550px;
-      background: #ffffff;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      padding: 40px 30px;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -60%);
+    <style>
+      /* Blur semua konten di belakang */
+      .blur-content *:not(.custom-alert):not(.custom-alert *) {
+        filter: blur(5px);
+        pointer-events: none;
+        user-select: none;
       }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
+
+      .custom-alert {
+        animation: fadeIn 0.5s ease;
+        width: 90%;
+        max-width: 550px;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 40px 30px;
       }
-    }
 
-    .custom-alert h5 {
-      font-size: 1.25rem;
-      margin-bottom: 25px;
-      color: #333;
-    }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -60%);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
+      }
 
-    .custom-alert .btn {
-      padding: 10px 25px;
-      font-size: 1rem;
-    }
-  </style>
+      .custom-alert h5 {
+        font-size: 1.25rem;
+        margin-bottom: 25px;
+        color: #333;
+      }
 
-  <div class="position-fixed top-50 start-50 translate-middle custom-alert text-center z-3">
-    <h5>Oops! Kamu belum login.<br>Yuk login dulu biar bisa pesan gudeg-nya!</h5>
-    <div>
-      <a href="login.php" class="btn btn-success me-2">Login Sekarang</a>
-      <a href="menu.php" class="btn btn-outline-success">Nanti Dulu</a>
+      .custom-alert .btn {
+        padding: 10px 25px;
+        font-size: 1rem;
+      }
+    </style>
+
+    <div class="position-fixed top-50 start-50 translate-middle custom-alert text-center z-3">
+      <h5>Oops! Kamu belum login.<br>Yuk login dulu biar bisa pesan gudeg-nya!</h5>
+      <div>
+        <a href="login.php" class="btn btn-success me-2">Login Sekarang</a>
+        <a href="menu.php" class="btn btn-outline-success">Nanti Dulu</a>
+      </div>
     </div>
-  </div>
-<?php endif; ?>
-
-
+  <?php endif; ?>
 
   <!-- Menu Section -->
-  <div class="menu-container mt-5 mb-5 blur-content"">
+  <div class="menu-container mt-5 mb-5 blur-content">
     <?php while ($row = $result->fetch_assoc()): ?>
       <div class="menu-card">
           <div class="img-wrapper">
@@ -328,6 +326,5 @@ $result = $koneksi->query("SELECT * FROM menu");
   </script>
   <?php unset($_SESSION['notif_keranjang']); ?>
   <?php endif; ?>
-
 </body>
 </html>
