@@ -144,7 +144,7 @@ $jumlah_keranjang = mysqli_fetch_assoc($total_keranjang)['total'] ?? 0;
     </div>
 
     <?php if (empty($dataKeranjang)): ?>
-      <div class="alert alert-warning text-center">Keranjang Anda Masih Kosong. Silahkan <a href="menu.php" class=" text-muted text-decoration-underline">Klik Disini</a> untuk Pilih Pesanan😉
+      <div class="alert alert-warning text-center">Keranjang Anda Masih Kosong. Silahkan <a href="menu.php" class=" text-decoration-underline text-danger">Klik Disini</a> untuk Pilih Pesanan😉
       </div>
     <?php else: ?>
       <?php $grandTotal = 0; ?>

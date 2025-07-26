@@ -108,7 +108,27 @@ $result = $koneksi->query("SELECT * FROM menu");
       100% { opacity: 1; transform: scale(1); }
     }
 
+      .small-swal {
+    max-width: 350px !important;
+    font-size: 0.95rem;
+  }
+
+  .swal2-popup .btn-green {
+    background-color: #198754 !important; /* Bootstrap's 'success' */
+    color: #fff !important;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .swal2-popup .btn-green:hover {
+    background-color: #146c43 !important;
+  }
+
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <!-- Navbar -->
@@ -161,7 +181,7 @@ $result = $koneksi->query("SELECT * FROM menu");
                 Halo, <?= htmlspecialchars($_SESSION['user']['username']) ?>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="profile.php">Profil</a></li>
+                <!-- <li><a class="dropdown-item" href="profile.php">Profil</a></li> -->
                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
               </ul>
             </div>
@@ -290,6 +310,24 @@ $result = $koneksi->query("SELECT * FROM menu");
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <?php if (isset($_SESSION['notif_keranjang']) && $_SESSION['notif_keranjang'] === 'success'): ?>
+  <script>
+    Swal.fire({
+      icon: 'success',
+      title: 'Pesanan berhasil ditambahkan!',
+      html: 'Silakan klik ikon <b>keranjang</b> di pojok atas untuk melihat dan melanjutkan pesanan.',
+      confirmButtonText: 'Oke, Mengerti',
+      customClass: {
+        popup: 'small-swal',
+        confirmButton: 'btn-green'
+      },
+      showCloseButton: true,
+      allowOutsideClick: false
+    });
+
+  </script>
+  <?php unset($_SESSION['notif_keranjang']); ?>
+  <?php endif; ?>
 
 </body>
 </html>

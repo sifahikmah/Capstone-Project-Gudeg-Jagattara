@@ -115,7 +115,7 @@ if (!$terlaris) {
               Halo, <?= htmlspecialchars($_SESSION['user']['username']) ?>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="profile.php">Profil</a></li>
+              <!-- <li><a class="dropdown-item" href="profile.php">Profil</a></li> -->
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </ul>
           </div>

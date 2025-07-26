@@ -27,5 +27,10 @@ if ($res->num_rows > 0) {
   $stmt->execute();
 }
 
+// setelah insert/update keranjang
+$_SESSION['notif_keranjang'] = 'success';
+header("Location: menu.php");
+exit;
+
 header('Location: menu.php?pesan=ditambahkan');
 ?>
