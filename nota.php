@@ -73,7 +73,7 @@ function formatRupiah($angka) {
     <tbody>
       <tr>
         <td><strong>Nama Pembeli</strong></td>
-        <td>: <?= htmlspecialchars($pesanan['nama_pembeli']) ?></td>
+        <td>: <?= ucfirst(htmlspecialchars($pesanan['nama_pembeli'])) ?></td>
       </tr>
       <tr>
         <td><strong>Tanggal</strong></td>
@@ -81,11 +81,11 @@ function formatRupiah($angka) {
       </tr>
       <tr>
         <td><strong>Metode Pembayaran</strong></td>
-        <td>: <?= htmlspecialchars($pesanan['metode_pembayaran']) ?></td>
+        <td>: <?= ucfirst(htmlspecialchars($pesanan['metode_pembayaran'])) ?></td>
       </tr>
       <tr>
         <td><strong>Pengantaran</strong></td>
-        <td>: <?= htmlspecialchars($pesanan['metode_pengantaran']) ?></td>
+        <td>: <?= ucfirst(htmlspecialchars($pesanan['metode_pengantaran'])) ?></td>
       </tr>
       <tr>
         <td><strong>Alamat Kirim</strong></td>
