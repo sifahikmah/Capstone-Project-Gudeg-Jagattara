@@ -1,36 +1,87 @@
 <?php
+session_start();
 include '../koneksi.php';
 
+// Mengecek apakah user sudah login
+if (!isset($_SESSION['username'])) {
+    // Jika belum login, kembalikan ke halaman login
+    header("Location: login.php");
+    exit();
+}
+
+// Mengecek apakah request yang dikirim adalah POST (biasanya saat form disubmit)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $nama     = $_POST['nama_pembeli'];
-  $menu     = $_POST['menu'];
+
+  // Mengambil data dari input form dan membersihkan spasi di awal/akhir
+  $nama     = trim($_POST['nama_pembeli']);
+  $menu     = trim($_POST['menu']);
   $jumlah   = intval($_POST['jumlah']);
-  $total    = intval(str_replace(['Rp.', '.', ','], '', $_POST['total']));
+  $total    = intval(str_replace(['Rp', '.', ','], '', $_POST['total']));
   $catatan  = trim($_POST['catatan']) ?: '-';
 
-  // Siapkan default
-  $alamat   = '-';
-  $pengantaran = '-';
-  $pembayaran  = '-';
-  $status   = 'diterima';
+  // Validasi: jika ada data yang kosong/tidak valid, hentikan proses dan beri pesan error
+  if ($nama === '' || $menu === '' || $jumlah <= 0 || $total <= 0) {
+    die("Input tidak valid. Silakan isi semua data dengan benar.");
+  }
 
-  // Simpan ke tabel pesanan terlebih dahulu
+  // Default untuk pesanan manual (langsung di toko)
+  $id_user         = null;
+  $metode_pembayaran  = 'tunai';
+  $metode_pengantaran = 'diambil';
+  $bukti_transfer     = null;
+  $status             = 'terima';
+  $nomor_wa           = '-';
+  $alamat             = '-';
+  $ongkir             = 0;
+
+  // Menyiapkan query untuk menyimpan data pesanan ke tabel `pesanan`
   $stmt = $koneksi->prepare("INSERT INTO pesanan 
-    (nama_pembeli, alamat, catatan, metode_pengantaran, metode_pembayaran, total, status) 
-    VALUES (?, ?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssssis", $nama, $alamat, $catatan, $pengantaran, $pembayaran, $total, $status);
-  $stmt->execute();
+    (id_user, total, metode_pembayaran, metode_pengantaran, catatan, bukti_transfer, created_at, status, nomor_wa, alamat, ongkir, nama_pembeli_manual) 
+    VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?)");
+
+  // Mengikat parameter ke query (jenis datanya: i = integer, s = string)
+  $stmt->bind_param(
+    "iisssssssis",
+    $id_user,                 // i
+    $total,                   // i
+    $metode_pembayaran,       // s
+    $metode_pengantaran,      // s
+    $catatan,                 // s
+    $bukti_transfer,          // s (bisa NULL)
+    $status,                  // s
+    $nomor_wa,                // s
+    $alamat,                  // s
+    $ongkir,                  // i
+    $nama                     // s
+  );
+
+  // Eksekusi query penyimpanan pesanan
+  if (!$stmt->execute()) {
+    die("Gagal menyimpan pesanan: " . $stmt->error);
+  }
+
+  // Ambil ID pesanan yang baru disimpan
   $id_pesanan = $stmt->insert_id;
   $stmt->close();
 
-  // Simpan ke tabel detail_pesanan dengan menu manual
+  // Hitung harga satuan
+  $harga_satuan = intval($total / max(1, $jumlah));
+
+  // Siapkan dan simpan detail pesanan ke tabel `detail_pesanan`
   $stmtDetail = $koneksi->prepare("INSERT INTO detail_pesanan 
-    (id_pesanan, id_menu, jumlah, harga_satuan, nama_menu_manual) 
-    VALUES (?, NULL, ?, ?, ?)");
-  $stmtDetail->bind_param("iiis", $id_pesanan, $jumlah, $total, $menu);
-  $stmtDetail->execute();
+    (id_pesanan, id_menu, jumlah, harga_satuan, total_harga, nama_menu_manual) 
+    VALUES (?, NULL, ?, ?, ?, ?)");
+
+  // id_menu diset NULL karena data menu diinput manual
+  $stmtDetail->bind_param("iiiis", $id_pesanan, $jumlah, $harga_satuan, $total, $menu);
+
+  if (!$stmtDetail->execute()) {
+    die("Gagal menyimpan detail pesanan: " . $stmtDetail->error);
+  }
+
   $stmtDetail->close();
 
+  // Redirect
   header("Location: pesanan.php");
   exit;
 }
@@ -59,9 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       display: block;
       padding: 15px;
     }
-    .sidebar a:hover {
-      background-color: #002244;
-    }
+    .sidebar a:hover,
     .sidebar a.active {
       background-color: #002244;
       font-weight: bold;
@@ -98,37 +147,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <!-- Main Content -->
-      <div class="col-md-9 col-lg-10 content">
+      <div class="col-md-10 content">
         <h4 class="fw-bold mb-4">Pesanan Masuk</h4>
         <h6 class="text-center mb-4">Tambah Pesanan Baru</h6>
 
-<form method="POST" action="tambah_pesanan.php">
-  <div class="mb-3">
-    <label class="form-label">Nama</label>
-    <input type="text" name="nama_pembeli" class="form-control" placeholder="Contoh: Lana Del Rey" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Menu</label>
-    <input type="text" name="menu" class="form-control" placeholder="Contoh: Paket 2" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Jumlah</label>
-    <input type="number" name="jumlah" class="form-control" placeholder="Contoh: 10" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Total (Rp)</label>
-    <input type="text" name="total" class="form-control" placeholder="Contoh: 75000" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">Catatan</label>
-    <textarea name="catatan" class="form-control" rows="3" placeholder="Contoh: Minta sambalnya ditambah"></textarea>
-  </div>
-  <div class="text-end">
-    <button type="reset" class="btn btn-cancel me-2">Batal</button>
-    <button type="submit" class="btn btn-submit">Simpan</button>
-  </div>
-</form>
-
+        <!-- Form tambah pesanan baru -->
+        <form method="POST" action="tambah_pesanan.php">
+          <div class="mb-3">
+            <label class="form-label">Nama</label>
+            <input type="text" name="nama_pembeli" class="form-control" placeholder="Contoh: Lana Del Rey" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Menu</label>
+            <input type="text" name="menu" class="form-control" placeholder="Contoh: Paket 2" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Jumlah</label>
+            <input type="number" name="jumlah" class="form-control" placeholder="Contoh: 10" min="1" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Total (Rp)</label>
+            <input type="text" name="total" class="form-control" placeholder="Contoh: 75000" pattern="^[0-9.,Rp\s]+$" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Catatan</label>
+            <textarea name="catatan" class="form-control" rows="3" placeholder="Contoh: Minta sambalnya ditambah"></textarea>
+          </div>
+          <div class="text-end">
+            <button type="reset" class="btn btn-cancel me-2">Batal</button>
+            <button type="submit" class="btn btn-submit">Simpan</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

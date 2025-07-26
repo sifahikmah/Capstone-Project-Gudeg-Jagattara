@@ -1,4 +1,15 @@
-<?php include '../koneksi.php'; ?>
+<?php 
+session_start();
+include '../koneksi.php';
+
+// Mengecek apakah user sudah login
+if (!isset($_SESSION['username'])) {
+    // Jika belum login, kembalikan ke halaman login
+    header("Location: login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -73,9 +84,10 @@
       <!-- Main content -->
       <div class="col-md-9 col-lg-10 content">
         <h4 class="fw-bold">Kelola Menu</h4>
+        <!-- Tombol untuk menuju halaman tambah menu baru -->
         <a href="tambahmenu.php" class="btn btn-add mb-3 mt-3">+ Tambah Menu</a>
 
-        <!-- Tabel Menu -->
+        <!-- Tabel daftar menu -->
         <table class="table table-bordered align-middle">
           <thead>
             <tr>
@@ -90,15 +102,18 @@
           <tbody>
             <?php
             $no = 1;
+            // Ambil semua data dari tabel menu
             $result = $koneksi->query("SELECT * FROM menu");
             while ($row = $result->fetch_assoc()):
             ?>
             <tr>
+              <!-- Tampilkan data menu -->
               <td><?= $no++ ?></td>
               <td><?= htmlspecialchars($row['nama_menu']) ?></td>
               <td>Rp.<?= number_format($row['harga'], 0, ',', '.') ?></td>
               <td><?= htmlspecialchars($row['deskripsi']) ?></td>
               <td>
+                <!-- Tampilkan gambar jika ada, jika tidak beri teks -->
                 <?php if (!empty($row['gambar']) && file_exists('../' . $row['gambar'])): ?>
                   <img src="../<?= htmlspecialchars($row['gambar']) ?>" class="menu-thumb" alt="Menu">
                 <?php else: ?>
@@ -106,6 +121,7 @@
                 <?php endif; ?>
               </td>
               <td>
+                <!-- Tombol edit dan hapus menu -->
                 <div class="d-flex gap-2">
                   <a href="editmenu.php?id_menu=<?= urlencode($row['id_menu']) ?>" class="btn btn-sm btn-edit">Edit</a>
                   <a href="hapusmenu.php?id_menu=<?= urlencode($row['id_menu']) ?>" onclick="return confirm('Yakin ingin menghapus menu ini?')" class="btn btn-sm btn-delete">Hapus</a>
@@ -118,5 +134,6 @@
       </div>
     </div>
   </div>
+
 </body>
 </html>

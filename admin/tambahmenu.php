@@ -1,29 +1,43 @@
 <?php
+session_start();
 include '../koneksi.php';
 
+// Mengecek apakah user sudah login
+if (!isset($_SESSION['username'])) {
+    // Jika belum login, kembalikan ke halaman login
+    header("Location: login.php");
+    exit();
+}
+
+// Cek apakah form dikirim menggunakan metode POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Ambil nilai input dari form (nama menu, harga, deskripsi)
   $nama = isset($_POST['nama_menu']) ? $_POST['nama_menu'] : '';
   $harga = isset($_POST['harga']) ? $_POST['harga'] : 0;
   $deskripsi = isset($_POST['deskripsi']) ? $_POST['deskripsi'] : '';
 
   $gambar = '';
+  // Cek apakah ada file gambar yang diunggah
   if (!empty($_FILES['gambar']['name'])) {
-    $namaFile = basename($_FILES['gambar']['name']);
-    $lokasiSimpan = '../assets/menu/' . $namaFile;
-    $gambar = 'assets/menu/' . $namaFile;
+    $namaFile = basename($_FILES['gambar']['name']); // Ambil nama file
+    $lokasiSimpan = '../assets/menu/' . $namaFile;    // Path simpan ke folder server
+    $gambar = 'assets/menu/' . $namaFile;             // Path simpan di database
 
+    // Pindahkan file dari folder sementara ke folder tujuan
     move_uploaded_file($_FILES['gambar']['tmp_name'], $lokasiSimpan);
   }
 
-  // Pastikan data tidak kosong sebelum insert
+  // Simpan data menu ke database jika semua field terisi
   if ($nama && $harga && $deskripsi) {
     $stmt = $koneksi->prepare("INSERT INTO menu (nama_menu, harga, deskripsi, gambar) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("siss", $nama, $harga, $deskripsi, $gambar);
-    $stmt->execute();
+    $stmt->execute(); // Jalankan perintah simpan
     $stmt->close();
 
+    // Tampilkan notifikasi dan alihkan ke halaman kelola menu
     echo "<script>alert('Menu berhasil ditambahkan'); window.location.href='kelolamenu.php';</script>";
   } else {
+    // Jika ada field yang kosong, tampilkan peringatan
     echo "<script>alert('Semua field harus diisi');</script>";
   }
 }
@@ -97,29 +111,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <!-- Main Content -->
       <div class="col-md-10 content">
         <h3 class="fw-bold mb-4" style="color:#0b3b66;">Kelola Menu</h3>
-        <form method="POST" enctype="multipart/form-data">
+         <!-- Formulir tambah menu -->
+        <form method="POST" enctype="multipart/form-data"> <!-- Gunakan POST dan dukung upload file -->
+            <!-- Input untuk nama menu -->
             <div class="mb-3">
               <label for="namaMenu" class="form-label">Nama Menu</label>
               <input type="text" class="form-control" id="namaMenu" name="nama_menu" placeholder="Contoh : Paket 1">
             </div>
+            <!-- Input untuk harga -->
             <div class="mb-3">
               <label for="harga" class="form-label">Harga</label>
               <input type="number" class="form-control" id="harga" name="harga" placeholder="Contoh : 25000">
             </div>
+            <!-- Input untuk deskripsi menu -->
             <div class="mb-3">
               <label for="deskripsi" class="form-label">Deskripsi</label>
               <textarea class="form-control" id="deskripsi" name="deskripsi" rows="1" placeholder="Contoh : Ikan Goreng+Sambel+Nasi"></textarea>
             </div>
+            <!-- Input untuk upload gambar menu -->
             <div class="mb-3">
               <label for="gambar" class="form-label">Gambar</label>
               <input type="file" class="form-control" id="gambar" name="gambar" accept="image/*">
             </div>
+            <!-- Tombol aksi -->
             <div class="d-flex justify-content-end gap-2">
               <button type="button" class="btn btn-cancel">Batal</button>
               <button type="submit" class="btn btn-save">Simpan</button>
             </div>
         </form>
-
+        
       </div>
     </div>
   </div>
