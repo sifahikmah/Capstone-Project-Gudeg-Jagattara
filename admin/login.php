@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $username;
         header("Location: dashboard.php");
     } else {
-        echo "<script>alert('Username atau Password salah!'); window.location='index.html';</script>";
+        echo "<script>alert('Username atau Password salah!'); window.location='dashboard.php';</script>";
     }
 }
 ?>
