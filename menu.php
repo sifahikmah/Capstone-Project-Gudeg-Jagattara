@@ -308,12 +308,12 @@ $result = $koneksi->query("SELECT * FROM menu");
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <?php if (isset($_SESSION['notif_keranjang']) && $_SESSION['notif_keranjang'] === 'success'): ?>
+  <?php if (isset($_SESSION['notif_keranjang']) && $_SESSION['notif_keranjang'] === 'first_added'): ?>
   <script>
     Swal.fire({
       icon: 'success',
-      title: 'Pesanan berhasil ditambahkan!',
-      html: 'Silakan klik ikon <b>keranjang</b> di pojok atas untuk melihat dan melanjutkan pesanan.',
+      title: 'Menu pertama berhasil ke keranjang!',
+      html: 'Klik ikon <b>keranjang</b> di pojok kanan atas untuk melihat dan melanjutkan proses pemesanan.',
       confirmButtonText: 'Oke, Mengerti',
       customClass: {
         popup: 'small-swal',
@@ -322,9 +322,9 @@ $result = $koneksi->query("SELECT * FROM menu");
       showCloseButton: true,
       allowOutsideClick: false
     });
-
   </script>
   <?php unset($_SESSION['notif_keranjang']); ?>
   <?php endif; ?>
+
 </body>
 </html>
